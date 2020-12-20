@@ -56,7 +56,7 @@ client.on('guildMemberAdd', Guildmember => {
 	//let SpecRole = Guildmember.guild.roles.cache.find(role => role.name === 'Member');
 
 	//Guildmember.roles.add(SpecRole);
-	Guildmember.guild.channels.cache.get('737425690877493309').send(`Welcome <@${Guildmember}> To Create Technical, where there's no point starting now because the world will be reset soon™️!`);
+	Guildmember.guild.channels.cache.get('737425690877493309').send(`Welcome <@${Guildmember}> To Create Technical, We're excited to have you join our community. \n\n Please put your application in the Applications channel. Have Fun!`);
 });
 
 
@@ -68,6 +68,7 @@ client.on('message', async message => {
 		const input = message.content.slice(prefix.length).trim().split(' ');
 		const command = input.shift().toLowerCase();
 		const commandArgs = input.join(' ');
+		const NoCommand = new MessageEmbed();
 
 		if (command == 'ping') {
 			client.commands.get('ping').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
@@ -91,6 +92,10 @@ client.on('message', async message => {
 			client.commands.get('shame').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client);
 		} else if (command == 'reactionrole') {
 			client.commands.get('reactionrole').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
+		} else {
+			NoCommand.setTitle('Command not found.');
+			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
+			message.channel.send({ embed: NoCommand });
 		}
 	}
 	// Put "else if (command === '//command')" after the curly bracket above

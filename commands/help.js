@@ -22,19 +22,24 @@ module.exports = {
                     inline: true,
                 },
                 {
-                    name: '!Reject',
-                    value: '\`for **Rejecting** a suggestion\`',
+                    name: '!Shame',
+                    value: '\`Shame someone\`',
                     inline: true,
                 },
                 {
                     name: '!Suggested',
-                    value: '\`shows the Suggestions you made and the \"Code\"\`',
+                    value: '\`shows the Suggestions you made and the \"Code\"\` \n to be added',
                     inline: false,
                     //with 
                 },
                 {
                     name: '!Ping',
                     value: '\`Play pong!\`',
+                    inline: true,
+                },
+                {
+                    name: '!Pong',
+                    value: '\`Steal someones job!\`',
                     inline: true,
                 }
             ],
