@@ -56,7 +56,7 @@ client.on('guildMemberAdd', Guildmember => {
 	//let SpecRole = Guildmember.guild.roles.cache.find(role => role.name === 'Member');
 
 	//Guildmember.roles.add(SpecRole);
-	Guildmember.guild.channels.cache.get('737425690877493309').send(`Welcome <@${Guildmember}> To Create Technical, We're excited to have you join our community. \n\n Please put your application in the Applications channel. Have Fun!`);
+	Guildmember.guild.channels.cache.get('737425690877493309').send(`Welcome ${Guildmember} To Create Technical, We're excited to have you join our community. \n\n Please put your application in the Applications channel. Have Fun!`);
 });
 
 
