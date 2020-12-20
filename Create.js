@@ -64,7 +64,7 @@ client.on('guildMemberAdd', Guildmember => {
 
 //Commands
 client.on('message', async message => {
-	if (message.content.startsWith(prefix) && (message.channel.id === '737774702877212724' || message.channel.id === '736160832790200340')) {
+	if (message.content.startsWith(prefix) && (message.channel.id === config.botchannel1 || message.channel.id === config.botchannel2 || message.channel.id === config.botchannel3)) {
 		const input = message.content.slice(prefix.length).trim().split(' ');
 		const command = input.shift().toLowerCase();
 		const commandArgs = input.join(' ');
