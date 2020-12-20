@@ -1,0 +1,22 @@
+{
+  "name": "discordbot",
+  "version": "1.0.0",
+  "description": "Bot for Create Technical",
+  "main": "Create.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Bot",
+    "Create",
+    "mod"
+  ],
+  "author": "Hyperbuilder",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "sequelize": "^6.3.5",
+    "sqlite3": "^5.0.0",
+    "ytdl-core": "^3.2.0"
+  }
+}
