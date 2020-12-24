@@ -16,7 +16,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 
 const Rcon = require('simple-rcon');
 const rconSurvival = new Rcon({
-	host: '104.243.42.254',
+	host: config.ip,
 	port: '25575',
 	password: config.RconPass,
 	timeout: '5000'
