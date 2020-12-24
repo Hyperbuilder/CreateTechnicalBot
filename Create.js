@@ -15,9 +15,9 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 });
 
 const rcon = new Rcon({
-	host: "localhost",
+	host: config.ip,
 	port: 25575,
-	password: "1234"
+	password: config.RconPass
 })
 
 const Tags = sequelize.define('tags', {
