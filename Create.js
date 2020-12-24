@@ -19,13 +19,11 @@ const rconSurvival = new Rcon({
 	host: config.ip,
 	port: '25575',
 	password: config.RconPass,
-	timeout: '5000'
 }).connect();
 const rconCreative = new Rcon({
 	host: config.ip,
 	port: '25585',
 	password: config.RconPass,
-	timeout: '5000'
 }).connect();
 
 const Tags = sequelize.define('tags', {
