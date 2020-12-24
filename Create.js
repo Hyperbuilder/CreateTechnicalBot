@@ -13,7 +13,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 	// SQLite only
 	storage: 'database.sqlite',
 });
-const Rcon = require('rcon-client')
+import Rcon from "rcon-client"
 const rcon = new Rcon({
 	host: config.ip,
 	port: 25575,
