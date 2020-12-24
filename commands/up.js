@@ -1,7 +1,27 @@
 module.exports = {
     name: 'up',
     description: "this is a ping command!",
-    execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client) {
+    execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, rconSurvival, rconCreative) {
+        rconSurvival.exec('status', function(res) {
+            console.log('Survivalserver status:', res.body)
+            message.channel.send('Survivalserver status:', res.body )
+        })
+        rconCreative.exec('status', function(res) {
+            console.log('Creativeserver status:', res.body)
+            message.channel.send('Creativeserver status:', res.body )
+        })
+
+
+
+
+
+
+
+
+
+
+
+
         //if (Math.random() < 0.05) {
         //    message.channel.send('\*\*YES\*\*')
         //   setTimeout(() => {
