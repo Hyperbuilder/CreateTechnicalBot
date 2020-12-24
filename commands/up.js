@@ -5,11 +5,11 @@ module.exports = {
         rconSurvival.exec('status', function(res) {
             console.log('Survivalserver status:', res.body)
             message.channel.send('Survivalserver status:', res.body )
-        })
+        }).then(() => 
         rconCreative.exec('status', function(res) {
             console.log('Creativeserver status:', res.body)
             message.channel.send('Creativeserver status:', res.body )
-        })
+        }))
 
 
 
