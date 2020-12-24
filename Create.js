@@ -14,17 +14,11 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 	storage: 'database.sqlite',
 });
 
-const Rcon = require('simple-rcon');
-const rconSurvival = new Rcon({
-	host: config.ip,
-	port: '25575',
-	password: config.RconPass,
-}).connect();
-const rconCreative = new Rcon({
-	host: config.ip,
-	port: '25585',
-	password: config.RconPass,
-}).connect();
+const rcon = new Rcon({
+	host: "localhost",
+	port: 25575,
+	password: "1234"
+})
 
 const Tags = sequelize.define('tags', {
 	suggestion: {
@@ -71,21 +65,7 @@ client.on('guildMemberAdd', Guildmember => {
 	Guildmember.guild.channels.cache.get('737425690877493309').send(`Welcome ${Guildmember} To Create Technical, We're excited to have you join our community. \n\n Please put your application in the Applications channel. Have Fun!`);
 });
 
-rconSurvival.on('authenticated', function() {
-	console.log('Authenticated!');
-}).on('connected', function() {
-	console.log('Connected!');
-}).on('error', function(err) {
-    console.log(err)
-}).on('close', function() {
-    console.log('Closing Connection')
-});
 
-rconCreative.on('authenticated', function() {
-	console.log('Authenticated!');
-}).on('connected', function() {
-	console.log('Connected!');
-})
 
 
 //Commands
@@ -119,7 +99,7 @@ client.on('message', async message => {
 		} else if (command == 'reactionrole') {
 			client.commands.get('reactionrole').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'up') {
-			client.commands.get('up').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, rconSurvival, rconCreative)
+			client.commands.get('up').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, rcon)
 		} else if (command == 'whitelist') {
 			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else {
