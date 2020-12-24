@@ -77,7 +77,11 @@ rconSurvival.on('authenticated', function() {
 	console.log('Authenticated!');
 }).on('connected', function() {
 	console.log('Connected!');
-})
+}).on('error', function(err) {
+    console.log(err)
+}).on('close', function() {
+    console.log('Closing Connection')
+});
 
 rconCreative.on('authenticated', function() {
 	console.log('Authenticated!');

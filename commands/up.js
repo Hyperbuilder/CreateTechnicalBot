@@ -5,7 +5,7 @@ module.exports = {
         rconSurvival.exec('status', function(res) {
             console.log('Survivalserver status:', res.body)
             message.channel.send('Survivalserver status:', res.body )
-        })
+        }).close();
         //setTimeout( 
         //rconCreative.exec('status', function(res) {
         //    console.log('Creativeserver status:', res.body)
