@@ -6,11 +6,11 @@ module.exports = {
             console.log('Survivalserver status:', res.body)
             message.channel.send('Survivalserver status:', res.body )
         })
-        setTimeout( 
-        rconCreative.exec('status', function(res) {
-            console.log('Creativeserver status:', res.body)
-            message.channel.send('Creativeserver status:', res.body )
-        }), 5000)
+        //setTimeout( 
+        //rconCreative.exec('status', function(res) {
+        //    console.log('Creativeserver status:', res.body)
+        //    message.channel.send('Creativeserver status:', res.body )
+        //}), 5000)
 
 
 
