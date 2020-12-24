@@ -13,12 +13,7 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 	// SQLite only
 	storage: 'database.sqlite',
 });
-import Rcon from "rcon-client"
-const rcon = new Rcon({
-	host: config.ip,
-	port: 25575,
-	password: config.RconPass
-})
+
 
 const Tags = sequelize.define('tags', {
 	suggestion: {
@@ -99,7 +94,7 @@ client.on('message', async message => {
 		} else if (command == 'reactionrole') {
 			client.commands.get('reactionrole').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'up') {
-			client.commands.get('up').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, rcon)
+			client.commands.get('up').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'whitelist') {
 			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else {
