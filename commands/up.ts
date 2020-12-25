@@ -1,14 +1,7 @@
 module.exports = {
     name: 'up',
     description: "this is a ping command!",
-    execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config) {
-
-        const Rcon = require("rcon-client")
-        const rcon = new Rcon({
-            host: config.ip,
-            port: 25575,
-            password: config.RconPass
-        })
+    async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon) {
 
         async function main() {
             rcon.on("connect", () => console.log("connected"))
