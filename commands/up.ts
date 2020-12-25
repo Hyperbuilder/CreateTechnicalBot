@@ -1,7 +1,7 @@
 module.exports = {
     name: 'up',
     description: "this is a ping command!",
-    async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config) {
+    async run(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config) {
 
         const Rcon = require("rcon-client")
         const rcon = await Rcon.connect({
