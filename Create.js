@@ -101,7 +101,23 @@ client.on('message', async message => {
 		} else if (command == 'up') {
 			client.commands.get('up').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon)
 		} else if (command == 'whitelist') {
-			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
+			//client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
+			async function main() {
+				rcon.on("connect", () => console.log("connected"))
+				rcon.on("authenticated", () => console.log("authenticated"))
+				rcon.on("end", () => console.log("end"))
+	
+				await rcon.connect()
+	
+				console.log(await rcon.send("/list"))
+	
+				await Promise.all([...Array(10)].map((_, i) => rcon.send(`/say ${i}`)))
+	
+				rcon.end()
+			}
+	
+			main().catch(console.error)
+		
 		} else {
 			NoCommand.setTitle('Command not found.');
 			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
