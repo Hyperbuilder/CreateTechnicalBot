@@ -42,12 +42,6 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-import { Rcon } from "rcon-client"
-const rcon = new Rcon({
-	host: config.ip,
-	port: 25575,
-	password: config.RconPass
-})
 
 
 //Botstart sequence
@@ -102,22 +96,29 @@ client.on('message', async message => {
 			client.commands.get('up').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon)
 		} else if (command == 'whitelist') {
 			//client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
+			import { Rcon } from "rcon-client"
+			const rcon = new Rcon({
+				host: config.ip,
+				port: 25575,
+				password: config.RconPass
+			})
+
 			async function main() {
 				rcon.on("connect", () => console.log("connected"))
 				rcon.on("authenticated", () => console.log("authenticated"))
 				rcon.on("end", () => console.log("end"))
-	
+
 				await rcon.connect()
-	
+
 				console.log(await rcon.send("/list"))
-	
+
 				await Promise.all([...Array(10)].map((_, i) => rcon.send(`/say ${i}`)))
-	
+
 				rcon.end()
 			}
-	
+
 			main().catch(console.error)
-		
+
 		} else {
 			NoCommand.setTitle('Command not found.');
 			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
