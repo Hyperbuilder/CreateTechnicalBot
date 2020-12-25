@@ -14,12 +14,6 @@ const sequelize = new Sequelize('database', 'username', 'password', {
 	storage: 'database.sqlite',
 });
 
-const Rcon = require("rcon-client")
-const rcon = await Rcon.connect({
-	host: config.ip,
-	port: 25575,
-	password: config.RconPass
-})
 
 const Tags = sequelize.define('tags', {
 	suggestion: {
