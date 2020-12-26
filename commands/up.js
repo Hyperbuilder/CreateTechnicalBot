@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'upts',
+    name: 'up',
     description: "this is a ping command!",
     async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon) {
         rcon.connect().then(() => {
