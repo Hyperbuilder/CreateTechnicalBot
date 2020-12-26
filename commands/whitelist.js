@@ -5,5 +5,6 @@ module.exports = {
         const channel = client.channels.cache.get(config.whitechannel)
         const author = message.author
         channel.send(`${author} Wants to be whitelisted, Their IGN: ${commandArgs}`)
+        message.channel.send('The devs and owner have been notified!')
     }
 }
