@@ -1,12 +1,12 @@
 module.exports = {
-    name: 'up',
+    name: 'list',
     description: "this is a ping command!",
     async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon) {
         rcon.connect().then(() => {
             console.log('Connected!');
-            return rcon.send('/say Check DC');
+            return rcon.send('/list');
         }).then(response => {
-            console.log(response); // Print the server response to console
+            message.channel.send(response);
             return rcon.disconnect();
         }).then(() => {
             console.log('Disconnected!');

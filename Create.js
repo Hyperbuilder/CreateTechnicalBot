@@ -93,8 +93,8 @@ client.on('message', async message => {
 			client.commands.get('shame').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client);
 		} else if (command == 'reactionrole') {
 			client.commands.get('reactionrole').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
-		} else if (command == 'up') {
-			client.commands.get('up').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon)
+		} else if (command == 'list') {
+			client.commands.get('list').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon)
 		} else if (command == 'whitelist') {
 			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else {
