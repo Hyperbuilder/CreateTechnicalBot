@@ -42,6 +42,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
+const SourceRCONClient = require('source-rcon-client').default, rcon = new SourceRCONClient(config.ip, 25575, config.RconPass);
 
 
 //Botstart sequence
@@ -93,7 +94,9 @@ client.on('message', async message => {
 		} else if (command == 'reactionrole') {
 			client.commands.get('reactionrole').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'up') {
-			client.commands.get('up').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
+			client.commands.get('up').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon)
+		} else if (command == 'up2') {
+			client.commands.get('upts').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'whitelist') {
 			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else {
