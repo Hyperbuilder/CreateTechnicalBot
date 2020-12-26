@@ -95,8 +95,6 @@ client.on('message', async message => {
 			client.commands.get('reactionrole').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'up') {
 			client.commands.get('up').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon)
-		} else if (command == 'up2') {
-			client.commands.get('upts').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'whitelist') {
 			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else {
