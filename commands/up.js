@@ -4,7 +4,7 @@ module.exports = {
     async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon) {
         rcon.connect().then(() => {
             console.log('Connected!');
-            return rcon.send('/status');
+            return rcon.send('/say Hello');
         }).then(response => {
             console.log(response); // Print the server response to console
             return rcon.disconnect();
