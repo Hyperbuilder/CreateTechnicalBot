@@ -4,7 +4,7 @@ module.exports = {
     execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconS, rconC) {
         const channel = client.channels.cache.get(config.whitechannel)
         const author = message.author
-        if (message.channel.id === 736160832790200340){
+        if (message.channel.id === 736160832790200340) {
             rconS.connect().then(() => {
                 console.log('Connected!');
                 return rcon.send(`/whitelist add ${commandArgs}`);
@@ -31,9 +31,9 @@ module.exports = {
                 console.error(error);
             });
             console.log('Whitelisted someone')
+        } else {
+            channel.send(`${author} Wants to be whitelisted, Their IGN: ${commandArgs}`)
+            message.channel.send('The devs and owner have been notified!')
         }
-
-        channel.send(`${author} Wants to be whitelisted, Their IGN: ${commandArgs}`)
-        message.channel.send('The devs and owner have been notified!')
     }
 }
