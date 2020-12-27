@@ -42,8 +42,8 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-const SourceRCONClient = require('source-rcon-client').default, rcon = new SourceRCONClient(config.ip, 25575, config.RconPass);
-
+const SourceRCONClient = require('source-rcon-client').default, rconS = new SourceRCONClient(config.ip, 25575, config.RconPass);
+const rconC = new SourceRCONClient(config.ip, 25585, config.RconPass)
 
 //Botstart sequence
 client.once('ready', () => {
@@ -96,9 +96,9 @@ client.on('message', async message => {
 		} else if (command == 'reactionrole') {
 			client.commands.get('reactionrole').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'list') {
-			client.commands.get('list').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon)
+			client.commands.get('list').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconS, rconC)
 		} else if (command == 'whitelist') {
-			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
+			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconS, rconC)
 		} else {
 			NoCommand.setTitle('Command not found.');
 			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
