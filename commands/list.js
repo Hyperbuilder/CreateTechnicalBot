@@ -4,7 +4,7 @@ module.exports = {
     async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rcon) {
         rcon.connect().then(() => {
             console.log('Connected!');
-            return rcon.send(`/say ${commandArgs}`);
+            return rcon.send(`/list`);
         }).then(response => {
             message.channel.send(response);
             return rcon.disconnect();

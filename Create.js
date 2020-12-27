@@ -73,6 +73,8 @@ client.on('message', async message => {
 
 		if (command == 'ping') {
 			client.commands.get('ping').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
+		} else if (command == 'pong') {
+			client.commands.get('pong').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'invite') {
 			client.commands.get('invite').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command === 'suggest') {
@@ -84,7 +86,7 @@ client.on('message', async message => {
 		} else if (command === 'taginfo') {
 			client.commands.get('taginfo').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command === 'showtags') {
-
+			return
 		} else if (command === 'removetag') {
 			client.commands.get('help').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'help') {

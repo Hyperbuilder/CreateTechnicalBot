@@ -38,8 +38,8 @@ module.exports = {
                     inline: true,
                 },
                 {
-                    name: '!Pong',
-                    value: '\`Steal someones job!\`',
+                    name: '!List',
+                    value: `\`See who's online!\``,
                     inline: true,
                 }
             ],
