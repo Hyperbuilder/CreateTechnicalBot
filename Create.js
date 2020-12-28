@@ -99,6 +99,8 @@ client.on('message', async message => {
 			client.commands.get('list').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconS, rconC)
 		} else if (command == 'whitelist') {
 			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconS, rconC)
+		} else if (command == 'status') {
+			client.commands.get('status').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else {
 			NoCommand.setTitle('Command not found.');
 			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)

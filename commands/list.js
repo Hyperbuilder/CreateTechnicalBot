@@ -1,28 +1,16 @@
 module.exports = {
     name: 'list',
     description: "this is a ping command!",
-    async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconS, rconC) {
-        rconS.connect().then(() => {
-            console.log('Connected!');
-            return rcon.send(`/list`);
-        }).then(response => {
-            message.channel.send(response);
-            return rcon.disconnect();
-        }).then(() => {
-            console.log('Disconnected!');
-        }).catch(error => {
-            console.error(error);
-        });
-        rconC.connect().then(() => {
-            console.log('Connected!');
-            return rcon.send(`/list`);
-        }).then(response => {
-            message.channel.send(response);
-            return rcon.disconnect();
-        }).then(() => {
-            console.log('Disconnected!');
-        }).catch(error => {
-            console.error(error);
-        });
+    execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconS, rconC) {
+        var ms = require('./minestat');
+        ms.init(config.ip, 25511, function (result) {
+            message.channel.send("Survival Server Players list, Running on port " + ms.port + ":");
+            if (ms.online) {
+                message.channel.send("Server is online with " + ms.current_players + " out of " + ms.max_players + " players.");
+            }
+            else {
+                message.channel.send("Survival is offline!");
+            }
+        })
     }
 }
