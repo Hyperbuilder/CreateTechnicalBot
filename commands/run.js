@@ -1,7 +1,7 @@
 module.exports = {
     name: 'run',
     description: "Runcommands",
-    execute(message, commandArgs, command, Tags, MessageEmbed, Discord) {
+    execute(message, commandArgs, command, Tags, MessageEmbed, Discord, config) {
         const util = require('minecraft-server-util');
 
         const client = new util.RCON(config.ip, { port: 25575, enableSRV: true, timeout: 5000, password: config.RconPass });
