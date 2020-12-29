@@ -43,7 +43,7 @@ for (const file of commandFiles) {
 }
 
 const SourceRCONClient = require('source-rcon-client').default, rconS = new SourceRCONClient(config.ip, 25575, config.RconPass);
-const rconC = new SourceRCONClient(config.ip, 25585, config.RconPass)
+const SourceRCONClient = require('source-rcon-client').default, rconC = new SourceRCONClient(config.ip, 25585, config.RconPass);
 
 //Botstart sequence
 client.once('ready', () => {
