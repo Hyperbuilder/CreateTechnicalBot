@@ -48,7 +48,7 @@ const SourceRCONClient = require('source-rcon-client').default, rconS = new Sour
 client.once('ready', () => {
 	Tags.sync();
 	console.log('The Bot is online Go start testing');
-	client.user.setActivity('My prefix: **\*\*!\*\*** ', { type: "LISTENING" });
+	client.user.setActivity('My prefix: **!** ', { type: "LISTENING" });
 });
 
 //Welcome messgae
