@@ -2,7 +2,7 @@ module.exports = {
     name: 'run',
     description: "Runcommands",
     execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, rconC) {
-        rconC.on('output', (message) => console.log(message));
+        client.on('output', (message) => console.log(message));
 
         rconC.connect()
             .then(async () => {

@@ -72,6 +72,8 @@ client.on('message', async message => {
 		const command = input.shift().toLowerCase();
 		const commandArgs = input.join(' ');
 		const NoCommand = new MessageEmbed();
+		const user = message.author;
+
 		if (command == 'ping') {
 			client.commands.get('ping').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'pong') {
@@ -105,6 +107,7 @@ client.on('message', async message => {
 		} else if (command == 'run') {
 			if (message.member.roles.cache.some(r => ["Dev", "Founder"].includes(r.name))) {
 				client.commands.get('run').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconC)
+				console.log(`${user} has the permissions`)
 			} else {
 				message.channel.send('You dont have the permissions to run this command.')
 			}
