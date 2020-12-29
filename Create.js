@@ -42,7 +42,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-const SourceRCONClient = require('source-rcon-client').default, rconS = new SourceRCONClient(config.ip, 25575, config.RconPass), rconC = new SourceRCONClient(config.ip, 25585, config.RconPass);
+const SourceRCONClient = require('source-rcon-client').default, rconC = new SourceRCONClient(config.ip, 25585, config.RconPass);
 
 //Botstart sequence
 client.once('ready', () => {
@@ -95,9 +95,9 @@ client.on('message', async message => {
 		} else if (command == 'reactionrole') {
 			client.commands.get('reactionrole').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'list') {
-			client.commands.get('list').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconS, rconC)
+			client.commands.get('list').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconC)
 		} else if (command == 'whitelist') {
-			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconS, rconC)
+			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconC)
 		} else if (command == 'status') {
 			client.commands.get('status').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'run') {
