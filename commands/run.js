@@ -14,7 +14,6 @@ module.exports = {
                 client.close();
             })
             .catch((error) => {
-                message.channel.send(error)
                 throw error;
             });
     }
