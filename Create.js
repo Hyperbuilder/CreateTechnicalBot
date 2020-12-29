@@ -46,17 +46,6 @@ const util = require('minecraft-server-util');
 
 const rconC = new util.RCON(config.ip, { port: 25575, enableSRV: true, timeout: 5000, password: config.RconPass }); // These are the default options
 
-client.on('output', (message) => console.log(message));
-
-client.connect()
-    .then(async () => {
-        await client.run('list'); // List all players online
-
-        client.close();
-    })
-    .catch((error) => {
-        throw error;
-    });
 
 //Botstart sequence
 client.once('ready', () => {
@@ -83,7 +72,6 @@ client.on('message', async message => {
 		const command = input.shift().toLowerCase();
 		const commandArgs = input.join(' ');
 		const NoCommand = new MessageEmbed();
-		const 
 		if (command == 'ping') {
 			client.commands.get('ping').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'pong') {
