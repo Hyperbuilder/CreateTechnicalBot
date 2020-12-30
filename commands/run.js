@@ -9,7 +9,7 @@ module.exports = {
 
         client.connect()
             .then(async () => {
-                await client.run(`say hello`);
+                await client.run(`/${commandArgs}`);
 
                 client.close();
             })
