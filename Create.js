@@ -114,7 +114,8 @@ client.on('message', async message => {
 			} else {
 				message.channel.send('You dont have the permissions to run this command.')
 			}
-		
+		} else if (command == 'test') {
+			client.commands.get('test').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, BotOwner)
 		} else {
 			NoCommand.setTitle('Command not found.');
 			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
