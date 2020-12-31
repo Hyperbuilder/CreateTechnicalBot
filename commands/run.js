@@ -9,7 +9,7 @@ module.exports = {
 
         client.connect()
             .then(async () => {
-                await client.run(`/${commandArgs}`);
+                await client.run(`${commandArgs}`).then(() => message.channel.send(`${commandArgs} executed correctly`));
 
                 client.close();
             })
