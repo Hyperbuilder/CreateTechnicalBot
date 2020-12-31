@@ -73,6 +73,7 @@ client.on('message', async message => {
 		const commandArgs = input.join(' ');
 		const NoCommand = new MessageEmbed();
 		const user = message.author;
+		const BotOwner = message.author.id == config.uid;
 
 		if (command == 'ping') {
 			client.commands.get('ping').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
@@ -111,6 +112,8 @@ client.on('message', async message => {
 			} else {
 				message.channel.send('You dont have the permissions to run this command.')
 			}
+		} else if (command == 'stop') {
+			client.commands.get('stop').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, BotOwner)
 		} else {
 			NoCommand.setTitle('Command not found.');
 			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
