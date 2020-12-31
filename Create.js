@@ -105,6 +105,8 @@ client.on('message', async message => {
 			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconC)
 		} else if (command == 'status') {
 			client.commands.get('status').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
+		} else if (command == 'stop') {
+			client.commands.get('stop').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, BotOwner)
 		} else if (command == 'run') {
 			if (message.member.roles.cache.some(r => ["Dev", "Founder"].includes(r.name))) {
 				client.commands.get('run').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconC)
@@ -112,8 +114,7 @@ client.on('message', async message => {
 			} else {
 				message.channel.send('You dont have the permissions to run this command.')
 			}
-		} else if (command == 'stop') {
-			client.commands.get('stop').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, BotOwner)
+		
 		} else {
 			NoCommand.setTitle('Command not found.');
 			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
