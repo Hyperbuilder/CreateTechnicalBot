@@ -92,7 +92,7 @@ client.on('message', async message => {
 		} else if (command === 'showtags') {
 			return
 		} else if (command === 'removetag') {
-			client.commands.get('help').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
+			client.commands.get('removetag').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'help') {
 			client.commands.get('help').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'shame') {
