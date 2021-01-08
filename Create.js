@@ -165,7 +165,7 @@ const setApplicationSubmissions = (message) => {
 		return;
 	}
 
-	if (!message.member.roles.cache.some(r => ["Dev", "Founder"].includes(r.name))) {
+	if (!message.member.roles.cache.some(r => ["Devs", "Founder"].includes(r.name))) {
 		message.reply("Only admins can do this.")
 		return;
 	}
