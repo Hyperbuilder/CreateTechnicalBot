@@ -226,6 +226,7 @@ client.on('message', async message => {
 			}
 		} else if (command == 'apply') {
 			sendUserApplyForm(message);
+			message.channel.send(`Check your DM's. No DM? check if you allow DM's from the CreateTechnical Server or Message a Dev`)
 		} else if (command == 'addrole') {
 			addUserToRole(message, commandArgs);
 		} else if (command == 'cancel') {
