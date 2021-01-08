@@ -133,7 +133,7 @@ const applicationFormSetup = (message) => {
 		return;
 	}
 
-	if (!message.member.roles.cache.some(r => ["Dev", "Founder"].includes(r.name))) {
+	if (!message.member.roles.cache.some(r => ["Devs", "Founder"].includes(r.name))) {
 		message.reply("This command can only be used by an admin.");
 		return;
 	}
@@ -238,7 +238,7 @@ client.on('message', async message => {
 		} else if (command == 'endsetup') {
 			endApplicationFormSetup(message);
 		} else if (command == 'setsubmissions') {
-			endApplicationFormSetup(message);
+			setApplicationSubmissions(message);
 		} else {
 			NoCommand.setTitle('Command not found.');
 			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
