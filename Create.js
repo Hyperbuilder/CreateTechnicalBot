@@ -257,7 +257,7 @@ client.on('message', async message => {
 
 					if (user.currentStep >= applicationQuestions.length) {
 						if (!userToSubmitApplicationsTo) {
-							message.author.send("The server admin has not configured $setsubmissions.");
+							message.author.send("The server admin has not configured !setsubmissions.");
 							return;
 						}
 						applicationFormCompleted(user);
