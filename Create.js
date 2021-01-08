@@ -82,7 +82,7 @@ const applicationFormCompleted = (data) => {
 };
 
 const addUserToRole = (message, roleName) => {
-	if (roleName === "Admin") {
+	if (roleName === "Devs") {
 		message.reply("Stop applying.")
 		return;
 	}
@@ -133,7 +133,7 @@ const applicationFormSetup = (message) => {
 		return;
 	}
 
-	if (!message.member.roles.find("name", "Founder")) {
+	if (!message.member.roles.cache.some(r => ["Dev", "Founder"].includes(r.name))) {
 		message.reply("This command can only be used by an admin.");
 		return;
 	}
@@ -165,7 +165,7 @@ const setApplicationSubmissions = (message) => {
 		return;
 	}
 
-	if (!message.member.roles.find("name", "Dev")) {
+	if (!message.member.roles.cache.some(r => ["Dev", "Founder"].includes(r.name))) {
 		message.reply("Only admins can do this.")
 		return;
 	}
