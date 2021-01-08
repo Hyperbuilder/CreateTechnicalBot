@@ -44,8 +44,14 @@ for (const file of commandFiles) {
 
 const util = require('minecraft-server-util');
 
-const rconC = new util.RCON(config.ip, { port: 25575, enableSRV: true, timeout: 5000, password: config.RconPass }); // These are the default options
+const rconC = new util.RCON(config.ip, { port: 25575, enableSRV: true, timeout: 5000, password: config.RconPass });
 
+//Let's
+let applicationQuestions = require("./application-questions.js");
+let usersApplicationStatus = [];
+let appNewForm = [];
+let isSettingFormUp = false;
+let userToSubmitApplicationsTo = null;
 
 //Botstart sequence
 client.once('ready', () => {
@@ -63,11 +69,115 @@ client.on('guildMemberAdd', Guildmember => {
 });
 
 
+//Application Functions
+const applicationFormCompleted = (data) => {
+	let i = 0, answers = "";
+
+	for (; i < applicationQuestions.length; i++) {
+		answers += `${applicationQuestions[i]}: ${data.answers[i]}\n`;
+	}
+
+	if (userToSubmitApplicationsTo)
+		userToSubmitApplicationsTo.send(`${data.user.username} has submitted a form.\n${answers}`);
+};
+
+const addUserToRole = (message, roleName) => {
+	if (roleName === "Admin") {
+		message.reply("Stop applying.")
+		return;
+	}
+
+	if (roleName && message.guild) {
+		const role = message.guild.roles.find("name", roleName);
+
+		if (role) {
+			message.member.addRole(role);
+
+			message.reply(`Added you to role: '${roleName}'`);
+		} else {
+			message.reply(`Role '${roleName}' does not exist.`);
+		}
+	} else if (!message.guild) {
+		message.reply("This command can only be used in a guild.");
+	} else {
+		message.reply("Please specify a role.");
+	}
+};
+
+const sendUserApplyForm = message => {
+	const user = usersApplicationStatus.find(user => user.id === message.author.id);
+
+	if (!user) {
+		message.author.send(`Application commands: \`\`\`${prefix}cancel, ${prefix}redo\`\`\``);
+		message.author.send(applicationQuestions[0]);
+		usersApplicationStatus.push({ id: message.author.id, currentStep: 0, answers: [], user: message.author });
+	} else {
+		message.author.send(applicationQuestions[user.currentStep]);
+	}
+};
+
+const cancelUserApplicationForm = (message, isRedo = false) => {
+	const user = usersApplicationStatus.find(user => user.id === message.author.id);
+
+	if (user) {
+		usersApplicationStatus = usersApplicationStatus.filter(el => el.id !== user.id)
+		message.reply("Application canceled.");
+	} else if (!isRedo) {
+		message.reply("You have not started an application form yet.");
+	}
+};
+
+const applicationFormSetup = (message) => {
+	if (!message.guild) {
+		message.reply("This command can only be used in a guild.");
+		return;
+	}
+
+	if (!message.member.roles.find("name", "Founder")) {
+		message.reply("This command can only be used by an admin.");
+		return;
+	}
+
+	if (isSettingFormUp) {
+		message.reply("Someone else is already configuring the form.");
+		return;
+	}
+
+	appNewForm = [];
+	isSettingFormUp = message.author.id;
+
+	message.author.send(`Enter questions and enter \`${prefix}endsetup\` when done.`);
+};
+
+const endApplicationFormSetup = (message) => {
+	if (isSettingFormUp !== message.author.id) {
+		message.reply("You are not the one setting the form up.");
+		return;
+	}
+
+	isSettingFormUp = false;
+	applicationQuestions = appNewForm;
+};
+
+const setApplicationSubmissions = (message) => {
+	if (!message.guild) {
+		message.reply("This command can only be used in a guild.");
+		return;
+	}
+
+	if (!message.member.roles.find("name", "Dev")) {
+		message.reply("Only admins can do this.")
+		return;
+	}
+
+	userToSubmitApplicationsTo = message.author;
+	message.reply("Form submissions will now be sent to you.")
+};
 
 
 //Commands
 client.on('message', async message => {
-	if (message.content.startsWith(prefix) && (message.channel.id === config.botchannel1 || message.channel.id === config.botchannel2 || message.channel.id === config.botchannel3)) {
+	if (message.content.startsWith(prefix) && (message.channel.id === config.botchannel1 || message.channel.id === config.botchannel2 || message.channel.id === config.botchannel3 || message.channel.id === 797201201527259181)) {
 		const input = message.content.slice(prefix.length).trim().split(' ');
 		const command = input.shift().toLowerCase();
 		const commandArgs = input.join(' ');
@@ -114,18 +224,52 @@ client.on('message', async message => {
 			} else {
 				message.channel.send('You dont have the permissions to run this command.')
 			}
-		} else if (command == 'test') {
-			client.commands.get('test').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
+		} else if (command == 'apply') {
+			sendUserApplyForm(message);
+		} else if (command == 'addrole') {
+			addUserToRole(message, commandArgs);
+		} else if (command == 'cancel') {
+			cancelUserApplicationForm(message);
+		} else if (command == 'redo') {
+			cancelUserApplicationForm(message, true);
+			sendUserApplyForm(message);
+		} else if (command == 'setup') {
+			applicationFormSetup(message);
+		} else if (command == 'endsetup') {
+			endApplicationFormSetup(message);
+		} else if (command == 'setsubmissions') {
+			endApplicationFormSetup(message);
 		} else {
 			NoCommand.setTitle('Command not found.');
 			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
 			message.channel.send({ embed: NoCommand });
 		}
+	} else {
+		if (message.channel.type === "dm") {
+			if (message.author.id === isSettingFormUp) {
+				appNewForm.push(message.content);
+			} else {
+				const user = usersApplicationStatus.find(user => user.id === message.author.id);
+
+				if (user && message.content) {
+					user.answers.push(message.content);
+					user.currentStep++;
+
+					if (user.currentStep >= applicationQuestions.length) {
+						if (!userToSubmitApplicationsTo) {
+							message.author.send("The server admin has not configured $setsubmissions.");
+							return;
+						}
+						applicationFormCompleted(user);
+						message.author.send("Congratulations your application has been sent!");
+					} else {
+						message.author.send(applicationQuestions[user.currentStep]);
+					}
+				}
+			}
+		}
 	}
-	// Put "else if (command === '//command')" after the curly bracket above
 });
-
-
 
 
 client.login(config.token);
