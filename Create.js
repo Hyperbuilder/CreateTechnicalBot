@@ -79,29 +79,6 @@ const applicationFormCompleted = (data) => {
 	ApplyChannel.send(`${data.user.username} has submitted a form.\n${answers}`);
 };
 
-const addUserToRole = (message, roleName) => {
-	if (roleName === "Devs") {
-		message.reply("Stop applying.")
-		return;
-	}
-
-	if (roleName && message.guild) {
-		const role = message.guild.roles.find("name", roleName);
-
-		if (role) {
-			message.member.addRole(role);
-
-			message.reply(`Added you to role: '${roleName}'`);
-		} else {
-			message.reply(`Role '${roleName}' does not exist.`);
-		}
-	} else if (!message.guild) {
-		message.reply("This command can only be used in a guild.");
-	} else {
-		message.reply("Please specify a role.");
-	}
-};
-
 const sendUserApplyForm = message => {
 	const user = usersApplicationStatus.find(user => user.id === message.author.id);
 
@@ -211,8 +188,6 @@ client.on('message', async message => {
 		} else if (command == 'apply') {
 			sendUserApplyForm(message);
 			message.channel.send(`Check your DM's. No DM? check if you allow DM's from the CreateTechnical Server or Message a Dev`)
-		} else if (command == 'addrole') {
-			addUserToRole(message, commandArgs);
 		} else if (command == 'cancel') {
 			cancelUserApplicationForm(message);
 		} else if (command == 'redo') {
