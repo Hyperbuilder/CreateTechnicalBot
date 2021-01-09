@@ -51,7 +51,6 @@ let applicationQuestions = require("./application-questions.js");
 let usersApplicationStatus = [];
 let appNewForm = [];
 let isSettingFormUp = false;
-let userToSubmitApplicationsTo = null;
 
 //Botstart sequence
 client.once('ready', () => {
@@ -76,9 +75,8 @@ const applicationFormCompleted = (data) => {
 	for (; i < applicationQuestions.length; i++) {
 		answers += `${applicationQuestions[i]}: ${data.answers[i]}\n`;
 	}
-
-	if (userToSubmitApplicationsTo)
-		userToSubmitApplicationsTo.send(`${data.user.username} has submitted a form.\n${answers}`);
+	const ApplyChannel = client.channels.cache.get('797422520655413276')
+	ApplyChannel.send(`${data.user.username} has submitted a form.\n${answers}`);
 };
 
 const addUserToRole = (message, roleName) => {
@@ -159,20 +157,6 @@ const endApplicationFormSetup = (message) => {
 	applicationQuestions = appNewForm;
 };
 
-const setApplicationSubmissions = (message) => {
-	if (!message.guild) {
-		message.reply("This command can only be used in a guild.");
-		return;
-	}
-
-	if (!message.member.roles.cache.some(r => ["Devs", "Founder"].includes(r.name))) {
-		message.reply("Only admins can do this.")
-		return;
-	}
-
-	userToSubmitApplicationsTo = message.author;
-	message.reply("Form submissions will now be sent to you.")
-};
 
 
 //Commands
@@ -238,8 +222,6 @@ client.on('message', async message => {
 			applicationFormSetup(message);
 		} else if (command == 'endsetup') {
 			endApplicationFormSetup(message);
-		} else if (command == 'setsubmissions') {
-			setApplicationSubmissions(message);
 		} else {
 			NoCommand.setTitle('Command not found.');
 			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
@@ -257,10 +239,6 @@ client.on('message', async message => {
 					user.currentStep++;
 
 					if (user.currentStep >= applicationQuestions.length) {
-						if (!userToSubmitApplicationsTo) {
-							message.author.send("The server admin has not configured !setsubmissions.");
-							return;
-						}
 						applicationFormCompleted(user);
 						message.author.send("Congratulations your application has been sent!");
 					} else {
