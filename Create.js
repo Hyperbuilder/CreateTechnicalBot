@@ -167,7 +167,7 @@ client.on('message', async message => {
 		const commandArgs = input.join(' ');
 		const NoCommand = new MessageEmbed();
 		const user = message.author;
-		const BotOwner = message.author.id == config.uid;
+
 
 		if (command == 'ping') {
 			client.commands.get('ping').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
@@ -200,7 +200,7 @@ client.on('message', async message => {
 		} else if (command == 'status') {
 			client.commands.get('status').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'stop') {
-			client.commands.get('stop').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, BotOwner)
+			client.commands.get('stop').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'run') {
 			if (message.member.roles.cache.some(r => ["Dev", "Founder"].includes(r.name))) {
 				client.commands.get('run').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconC)
