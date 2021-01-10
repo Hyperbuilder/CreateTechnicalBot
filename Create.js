@@ -42,9 +42,6 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-const util = require('minecraft-server-util');
-
-const rconC = new util.RCON(config.ip, { port: 25575, enableSRV: true, timeout: 5000, password: config.RconPass });
 
 //Let's
 let applicationQuestions = require("./application-questions.js");
