@@ -5,7 +5,7 @@ module.exports = {
         const util = require('minecraft-server-util');
 
         const client = new util.RCON(`${config.ip}`, { port: 25575, enableSRV: true, timeout: 5000, password: `${config.RconPass}`});
-        client.on('output', (message) => console.log(message));
+        client.on('output', (message) => message.channel.send(message));
 
         client.connect()
             .then(async () => {
