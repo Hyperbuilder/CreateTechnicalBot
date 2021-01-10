@@ -179,7 +179,7 @@ client.on('message', async message => {
 		} else if (command == 'stop') {
 			client.commands.get('stop').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'run') {
-			if (message.member.roles.cache.some(r => ["Dev", "Founder"].includes(r.name))) {
+			if (message.member.roles.cache.some(r => ["Devs", "Founder"].includes(r.name))) {
 				client.commands.get('run').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, rconC)
 				console.log(`${user} has the permissions`)
 			} else {
