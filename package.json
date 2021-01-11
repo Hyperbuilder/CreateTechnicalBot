@@ -15,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.5.1",
+    "minecraft-server-util": "^3.4.2",
     "sequelize": "^6.3.5",
     "sqlite3": "^5.0.0",
     "ytdl-core": "^3.2.0"
