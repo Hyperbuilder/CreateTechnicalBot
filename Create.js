@@ -153,8 +153,8 @@ client.on('message', async message => {
 			client.commands.get('suggest').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'tag') {
 			client.commands.get('tag').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
-		} else if (command == 'trade') {
-			client.commands.get('trade').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
+		} else if (command == 'test') {
+			client.commands.get('test').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command === 'taginfo') {
 			client.commands.get('taginfo').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command === 'showtags') {
