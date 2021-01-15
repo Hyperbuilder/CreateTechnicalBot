@@ -80,7 +80,7 @@ const sendUserApplyForm = message => {
 	const user = usersApplicationStatus.find(user => user.id === message.author.id);
 
 	if (!user) {
-		message.author.send(`Application commands: \`\`\`${prefix}cancel, ${prefix}redo\`\`\``);
+		message.author.send(`Apply commands: \`\`\`${prefix}cancel, ${prefix}redo\`\`\``);
 		message.author.send(applicationQuestions[0]);
 		usersApplicationStatus.push({ id: message.author.id, currentStep: 0, answers: [], user: message.author });
 	} else {
