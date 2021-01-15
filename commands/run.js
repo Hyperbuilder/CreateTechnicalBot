@@ -3,11 +3,11 @@ module.exports = {
     description: "Runcommands",
     execute(message, commandArgs, command, Tags, MessageEmbed, Discord, config) {
         const util = require('minecraft-server-util');
-        const ip = config.ip
+        const IP = config.RCONIP
         const password = config.RconPass
 
 
-        const client = new util.RCON(`${ip}`, { port: 25575, enableSRV: false, timeout: 5000, password: `${password}`});
+        const client = new util.RCON(`${IP}`, { port: 25575, enableSRV: false, timeout: 5000, password: `${password}`});
         client.on('output', (message) => message.channel.send(message));
 
         client.connect()
