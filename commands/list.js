@@ -8,6 +8,7 @@ module.exports = {
             .then((response) => {
                 list.setTitle(`Survival`)
                 list.addField(`${onlinePlayers}/${maxPlayers}\n${response.samplePlayers.map(p => p.name).join('\n')}`)
+                message.channel.send( {embed: list} );
             })
             .catch((error) => {
                 throw error;
