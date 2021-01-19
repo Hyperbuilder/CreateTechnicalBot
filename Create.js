@@ -32,6 +32,7 @@ const prefix = '!';
 
 const fs = require('fs');
 const { constants } = require('buffer');
+const util = require('minecraft-server-util');
 
 client.commands = new Discord.Collection();
 
@@ -168,7 +169,7 @@ client.on('message', async message => {
 		} else if (command == 'reactionrole') {
 			client.commands.get('reactionrole').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'list') {
-			client.commands.get('list').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
+			client.commands.get('list').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, util)
 		} else if (command == 'whitelist') {
 			client.commands.get('whitelist').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'status') {
@@ -176,12 +177,13 @@ client.on('message', async message => {
 		} else if (command == 'stop') {
 			client.commands.get('stop').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'run') {
-			if (message.member.roles.cache.some(r => ["Devs", "Founder"].includes(r.name))) {
-				client.commands.get('run').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
-				console.log(`${user} has the permissions`)
-			} else {
-				message.channel.send('You dont have the permissions to run this command.')
-			}
+			return
+			//if (message.member.roles.cache.some(r => ["Devs", "Founder"].includes(r.name))) {
+			//	client.commands.get('run').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
+			//	console.log(`${user} has the permissions`)
+			//} else {
+			//	message.channel.send('You dont have the permissions to run this command.')
+			//}
 		} else if (command == 'apply') {
 			sendUserApplyForm(message);
 			message.channel.send(`Check your DM's. No DM? check if you allow DM's from the CreateTechnical Server or Message a Dev`)

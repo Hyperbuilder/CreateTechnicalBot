@@ -16,7 +16,7 @@ module.exports = {
             }
         })
         msc.init(config.ip, 25611, function (result) {
-            message.channel.send("Creative Server status:\n Running on port " + msc.port + ":");
+            message.channel.send("Creative Server status:\nRunning on port " + msc.port + ":");
             if (msc.online) {
                 message.channel.send("Server is online with " + msc.current_players + " out of " + msc.max_players + " players.");
                 message.channel.send("Message of the day: " + msc.motd);
