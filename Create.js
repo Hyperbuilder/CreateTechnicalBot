@@ -62,7 +62,10 @@ client.on('guildMemberAdd', Guildmember => {
 	//let SpecRole = Guildmember.guild.roles.cache.find(role => role.name === 'Member');
 
 	//Guildmember.roles.add(SpecRole);
-	Guildmember.guild.channels.cache.get('737425690877493309').send(`Welcome ${Guildmember} To Create Technical, We're excited to have you join our community. \n\n Please put your application in the Applications channel. When you recieve your Member role use !whitelist <IGN> in the Wall-of-shame channel. \n Have Fun!`);
+	const Welcome = new MessageEmbed()
+	Welcome.setTitle(`Welcome to CT`)
+	Welcome.addField(`Welcome ${Guildmember} To Create Technical, We're excited to have you join our community.\nPlease put your application in the Applications channel. When you recieve your Member role use !whitelist <IGN> in the Bot-commands channel. \n Have Fun!`)
+	Guildmember.guild.channels.cache.get('737425690877493309').send({ embed: Welcome}); 
 });
 
 
