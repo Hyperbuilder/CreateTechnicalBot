@@ -64,7 +64,7 @@ client.on('guildMemberAdd', Guildmember => {
 	//Guildmember.roles.add(SpecRole);
 	const Welcome = new MessageEmbed()
 	Welcome.setTitle(`Welcome to CT`)
-	Welcome.addField(`Welcome ${Guildmember} To Create Technical, We're excited to have you join our community.\nPlease put your application in the Applications channel. When you recieve your Member role use !whitelist <IGN> in the Bot-commands channel. \n Have Fun!`)
+	Welcome.addField(`Welcome To Create Technical`, `Hey ${Guildmember}, we're excited to have you join our community.\nPlease put your application in the Applications channel. When you recieve your Member role use !whitelist <MinecraftPlayerName> in the Bot-commands channel. \nHave Fun!`)
 	Guildmember.guild.channels.cache.get('737425690877493309').send({ embed: Welcome}); 
 });
 
