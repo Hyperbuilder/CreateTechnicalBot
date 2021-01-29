@@ -233,12 +233,13 @@ client.on('message', async message => {
 setInterval(function () {
 	util.queryFull(config.IP, { port: 25511, enableSRV: true, timeout: 5000, sessionID: 1 })
 		.then((response) => {
+			const Channeltopic = client.channels.cache.get("734432376104550507");
 			if (response) {
-				client.channels.cache.get("734432376104550507").setTopic('Survival Server Online')
+				Channeltopic.setTopic('Survival Server Online')
 					.then(updated => console.log(`Channel's new topic is ${updated.topic}`))
 					.catch(console.error);
 			} else {
-				client.channels.cache.get("734432376104550507").setTopic('Survival Server Offline')
+				Channeltopic.setTopic('Survival Server Offline')
 					.then(updated => console.log(`Channel's new topic is ${updated.topic}`))
 					.catch(console.error);
 			}
