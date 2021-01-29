@@ -145,6 +145,7 @@ client.on('message', async message => {
 		const commandArgs = input.join(' ');
 		const NoCommand = new MessageEmbed();
 		const user = message.author;
+		const TypeChannel = client.channels.cache.get("736160726003089479");
 
 
 		if (command == 'ping') {
@@ -159,7 +160,7 @@ client.on('message', async message => {
 			client.commands.get('tag').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'test') {
 			client.commands.get('test').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
-			channel.startTyping(10)
+			TypeChannel.startTyping(10)
 		} else if (command === 'taginfo') {
 			client.commands.get('taginfo').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command === 'showtags') {
