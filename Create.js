@@ -64,7 +64,7 @@ client.on('guildMemberAdd', Guildmember => {
 	//Guildmember.roles.add(SpecRole);
 	const Welcome = new MessageEmbed()
 	Welcome.setTitle(`Welcome to CT`)
-	Welcome.addField(`Welcome To Create Technical`, `Hey ${Guildmember}, we're excited to have you join our community.\nPlease put your application in the Applications channel. When you recieve your Member role use /whitelist <MinecraftPlayerName> in the Bot-commands channel. If the servers are down use !whitelist <MinecraftPlayerName> \nHave Fun!`)
+	Welcome.addField(`Welcome To Create Technical`, `Hey ${Guildmember}, we're excited to have you join our community.\nPlease put your application in the Applications channel. When you recieve your Member role use /whitelist <MinecraftPlayerName> in Bot-channel-and-shaming. If the servers are down use !whitelist <MinecraftPlayerName> in Bot-channel-and-shaming \nHave Fun!`)
 	Guildmember.guild.channels.cache.get('737425690877493309').send({ embed: Welcome}); 
 });
 
