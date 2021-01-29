@@ -65,7 +65,7 @@ client.on('guildMemberAdd', Guildmember => {
 	const Welcome = new MessageEmbed()
 	Welcome.setTitle(`Welcome to CT`)
 	Welcome.addField(`Welcome To Create Technical`, `Hey ${Guildmember}, we're excited to have you join our community.\nPlease put your application in the Applications channel. When you recieve your Member role use /whitelist <MinecraftPlayerName> in Bot-channel-and-shaming. If the servers are down use !whitelist <MinecraftPlayerName> in Bot-channel-and-shaming \nHave Fun!`)
-	Guildmember.guild.channels.cache.get('737425690877493309').send({ embed: Welcome}); 
+	Guildmember.guild.channels.cache.get('737425690877493309').send({ embed: Welcome });
 });
 
 
@@ -159,6 +159,7 @@ client.on('message', async message => {
 			client.commands.get('tag').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'test') {
 			client.commands.get('test').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
+			channel.startTyping(10)
 		} else if (command === 'taginfo') {
 			client.commands.get('taginfo').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command === 'showtags') {
@@ -226,6 +227,26 @@ client.on('message', async message => {
 		}
 	}
 });
+
+
+
+setInterval(function () {
+	util.queryFull(config.IP, { port: 25511, enableSRV: true, timeout: 5000, sessionID: 1 })
+		.then((response) => {
+			if (response) {
+				client.channels.cache.get("734432376104550507").setTopic('Survival Server Online')
+					.then(updated => console.log(`Channel's new topic is ${updated.topic}`))
+					.catch(console.error);
+			} else {
+				client.channels.cache.get("734432376104550507").setTopic('Survival Server Offline')
+					.then(updated => console.log(`Channel's new topic is ${updated.topic}`))
+					.catch(console.error);
+			}
+		})
+		.catch((error) => {
+			throw error;
+		});
+}, 300000)
 
 
 client.login(config.token);
