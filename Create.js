@@ -145,7 +145,6 @@ client.on('message', async message => {
 		const commandArgs = input.join(' ');
 		const NoCommand = new MessageEmbed();
 		const user = message.author;
-		const TypeChannel = client.channels.cache.get("736160726003089479");
 
 
 		if (command == 'ping') {
@@ -160,7 +159,6 @@ client.on('message', async message => {
 			client.commands.get('tag').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command == 'test') {
 			client.commands.get('test').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
-			TypeChannel.startTyping(10)
 		} else if (command === 'taginfo') {
 			client.commands.get('taginfo').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client)
 		} else if (command === 'showtags') {
@@ -181,14 +179,6 @@ client.on('message', async message => {
 			client.commands.get('status').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'stop') {
 			client.commands.get('stop').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
-		} else if (command == 'run') {
-			return
-			//if (message.member.roles.cache.some(r => ["Devs", "Founder"].includes(r.name))) {
-			//	client.commands.get('run').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
-			//	console.log(`${user} has the permissions`)
-			//} else {
-			//	message.channel.send('You dont have the permissions to run this command.')
-			//}
 		} else if (command == 'apply') {
 			sendUserApplyForm(message);
 			message.channel.send(`Check your DM's. No DM? check if you allow DM's from the CreateTechnical Server or Message a Dev`)
@@ -203,7 +193,7 @@ client.on('message', async message => {
 			endApplicationFormSetup(message);
 		} else {
 			NoCommand.setTitle('Command not found.');
-			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command should be used? DM Hyperbuilder`)
+			NoCommand.addField(`The Command, ${command}, is not in use by this bot.`, `Think the command the command should excist? DM Hyperbuilder`)
 			message.channel.send({ embed: NoCommand });
 		}
 	} else {
@@ -236,7 +226,7 @@ setInterval(function () {
 		.then((response) => {
 			const Channeltopic = client.channels.cache.get("734432376104550507");
 			if (response) {
-				Channeltopic.setTopic('Survival Server Online')
+				Channeltopic.setTopic(`Survival Server Online with ${response.onlinePlayers} Players`)
 					.then(updated => console.log(`Channel's new topic is ${updated.topic}`))
 					.catch(console.error);
 			} else {
