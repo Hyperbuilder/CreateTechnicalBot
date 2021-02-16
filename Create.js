@@ -219,10 +219,10 @@ client.on('message', async message => {
 	}
 });
 
-
+const ServerIP = config.IP;
 
 setInterval(function () {
-	util.queryFull(config.IP, { port: 25511, enableSRV: true, timeout: 5000, sessionID: 1 })
+	util.queryFull(`${ServerIP}`, { port: 25511, enableSRV: true, timeout: 5000, sessionID: 1 })
 		.then((response) => {
 			const Channeltopic = client.channels.cache.get("734432376104550507");
 			if (response) {
