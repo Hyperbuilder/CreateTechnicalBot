@@ -221,7 +221,7 @@ client.on('message', async message => {
 
 const ServerIP = config.IP;
 
-setInterval(function () {
+function ServerQuery() {
 	util.queryFull(`${ServerIP}`, { port: 25511, enableSRV: true, timeout: 5000, sessionID: 1 })
 		.then((response) => {
 			console.log(`Got response from ${ServerIP}`)
@@ -239,7 +239,9 @@ setInterval(function () {
 		.catch((error) => {
 			throw error;
 		});
-}, 300000)
+}
+
+setInterval(ServerQuery(), 300000)
 
 
 client.login(config.token);
