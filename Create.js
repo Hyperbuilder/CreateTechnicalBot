@@ -224,6 +224,7 @@ const ServerIP = config.IP;
 setInterval(function () {
 	util.queryFull(`${ServerIP}`, { port: 25511, enableSRV: true, timeout: 5000, sessionID: 1 })
 		.then((response) => {
+			console.log(`Got response from ${ServerIP}`)
 			const Channeltopic = client.channels.cache.get("734432376104550507");
 			if (response) {
 				Channeltopic.setTopic(`Survival Server Online with ${response.onlinePlayers} Players`)
