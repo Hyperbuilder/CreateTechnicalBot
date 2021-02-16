@@ -7,6 +7,5 @@ module.exports = {
         const uptime = (Math.floor(process.uptime()) / 60) / 60
         message.channel.send(`Running \nlocaltime: ${date}\nUptime: ${uptime}`)
         message.channel.send(`Stored Server IP: ${config.IP}`)
-        
     }
 }

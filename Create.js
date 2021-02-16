@@ -221,7 +221,7 @@ client.on('message', async message => {
 
 const ServerIP = config.IP;
 
-function ServerQuery() {
+setInterval(function () {
 	util.queryFull(`${ServerIP}`, { port: 25511, enableSRV: true, timeout: 5000, sessionID: 1 })
 		.then((response) => {
 			console.log(`Got response from ${ServerIP}`)
@@ -237,11 +237,10 @@ function ServerQuery() {
 			}
 		})
 		.catch((error) => {
+			Channeltopic.send('An Error has occured, \*\*Please Ignore\*\* This is meant for the Dev team')
 			throw error;
 		});
-}
-
-setInterval(ServerQuery(), 300000)
+}, 300000)
 
 
 client.login(config.token);
