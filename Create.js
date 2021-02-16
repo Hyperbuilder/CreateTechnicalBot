@@ -238,7 +238,8 @@ setInterval(function () {
 			}
 		})
 		.catch((error) => {
-			Channeltopic.send('An Error has occured, \*\*Please Ignore\*\* This is meant for the Dev team')
+			const Channeltopic2 = client.channels.cache.get("734432376104550507");
+			Channeltopic2.send('An Error has occured, \*\*Please Ignore\*\* This is meant for the Dev team')
 			throw error;
 		});
 }, 300000)
