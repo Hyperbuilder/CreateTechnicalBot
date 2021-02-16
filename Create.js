@@ -221,28 +221,28 @@ client.on('message', async message => {
 
 const ServerIP = config.IP;
 
-setInterval(function () {
-	console.log("Ran SetInterval Function")
-	util.queryFull(`${ServerIP}`, { port: 25511, enableSRV: true, timeout: 5000, sessionID: 1 })
-		.then((response) => {
-			console.log(`Got response from ${ServerIP}`)
-			const Channeltopic = client.channels.cache.get("734432376104550507");
-			if (response) {
-				Channeltopic.setTopic(`Survival Server Online with ${response.onlinePlayers} Players`)
-					.then(updated => console.log(`Channel's new topic is ${updated.topic}`))
-					.catch(console.error);
-			} else {
-				Channeltopic.setTopic('Survival Server Offline')
-					.then(updated => console.log(`Channel's new topic is ${updated.topic}`))
-					.catch(console.error);
-			}
-		})
-		.catch((error) => {
-			const Channeltopic2 = client.channels.cache.get("734432376104550507");
-			Channeltopic2.send('An Error has occured, \*\*Please Ignore\*\* This is meant for the Dev team')
-			throw error;
-		});
-}, 300000)
+// setInterval(function () {
+// 	console.log("Ran SetInterval Function")
+// 	util.queryFull(`${ServerIP}`, { port: 25511, enableSRV: true, timeout: 5000, sessionID: 1 })
+// 		.then((response) => {
+// 			console.log(`Got response from ${ServerIP}`)
+// 			const Channeltopic = client.channels.cache.get("734432376104550507");
+// 			if (response) {
+// 				Channeltopic.setTopic(`Survival Server Online with ${response.onlinePlayers} Players`)
+// 					.then(updated => console.log(`Channel's new topic is ${updated.topic}`))
+// 					.catch(console.error);
+// 			} else {
+// 				Channeltopic.setTopic('Survival Server Offline')
+// 					.then(updated => console.log(`Channel's new topic is ${updated.topic}`))
+// 					.catch(console.error);
+// 			}
+// 		})
+// 		.catch((error) => {
+// 			const Channeltopic2 = client.channels.cache.get("734432376104550507");
+// 			Channeltopic2.send('An Error has occured, \*\*Please Ignore\*\* This is meant for the Dev team')
+// 			throw error;
+// 		});
+// }, 300000)
 
 
 client.login(config.token);
