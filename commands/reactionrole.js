@@ -3,18 +3,17 @@ module.exports = {
     description: "this makes the bot say pong",
     async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client) {
         // put the channel id in the brackets bellow
-        const channel = '787497982462525450'
+        const rrchannel = '787497982462525450'
         const memberRole = message.guild.roles.cache.find(role => role.name === "member");
 
         const memberEmoji = '👀';
 
         let embed = new Discord.MessageEmbed()
-            .setTitle('By reacting you agree that you have read the rules and that you will not break them!')
-            .setDescription('Reacting will let us know if we should whitelist you on the servers!\n\n'
+            .setTitle('By reacting you agree that you will recieve Discord pings!')
+            .setDescription('Reacting will give you a role that will be pinged when an announcement is made!\n\n'
                 + `${memberEmoji} So you can join\n`);
 
-        let messageEmbed = await message.channel.send(embed);
-        messageEmbed.react(memberEmoji);
+        let messageEmbed = await rrchannel.send(embed).then(messageEmbed.react(memberEmoji));
 
         client.on('messageReactionAdd', async (reaction, user) => {
             if (reaction.message.partial) await reaction.message.fetch();
