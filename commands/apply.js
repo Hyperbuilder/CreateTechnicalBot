@@ -2,7 +2,7 @@ module.exports = {
 	name: 'apply',
 	description: "this is a apply command!",
 	async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, sendUserApplyForm) {
-		const memberEmoji = '👀';
+		const memberEmoji = '🔵';
 		const Applychannel = client.channels.cache.get('815597271165042688')
 
 		let embed = new Discord.MessageEmbed()
