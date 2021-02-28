@@ -13,14 +13,14 @@ module.exports = {
 		let Applymessage = await Applychannel.send(embed).then(messageEmbed.react(memberEmoji));
 
 
-		client.on('messageReactionAdd', async (reaction, user) => {
+		client.on('messageReactionAdd', async (reaction, user, message) => {
 			if (reaction.message.partial) await reaction.message.fetch();
 			if (reaction.partial) await reaction.fetch();
 			if (user.bot) return;
 			if (!reaction.message.guild) return;
 
 			if (reaction.emoji.name === memberEmoji) {
-				await reaction.message.guild.members.cache.get(user.id).roles.add(memberRole)
+				await reaction.message.guild.members.cache.get(user.id).sendUserApplyForm(message)
 
 			} else {
 				return;
