@@ -3,14 +3,14 @@ module.exports = {
 	description: "this is a apply command!",
 	async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, sendUserApplyForm) {
 		const memberEmoji = '👀';
-		const rrchannel = '815597271165042688'
+		const Applychannel = client.channels.cache.get('815597271165042688')
 
 		let embed = new Discord.MessageEmbed()
 			.setTitle('Start Applications')
 			.setDescription('Create a Applicationform to fill in.\n\n' + `${memberEmoji} To Apply!\n`);
 
 
-		let messageEmbed = await rrchannel.send(embed).then(messageEmbed.react(memberEmoji));
+		let messageEmbed = await Applychannel.send(embed).then(messageEmbed.react(memberEmoji));
 
 
 		client.on('messageReactionAdd', async (reaction, user) => {
