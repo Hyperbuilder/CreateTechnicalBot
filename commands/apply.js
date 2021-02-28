@@ -4,7 +4,7 @@ module.exports = {
 	async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client) {
 		const memberEmoji = '🔵';
 		const Applychannel = client.channels.cache.get('815597271165042688')
-		const sendUserApplyForm = require('..Create/')
+		const sendUserApplyForm = require('../Create.js')
 		let embed = new Discord.MessageEmbed()
 			.setTitle('Start Applications')
 			.setDescription('Create a Applicationform to fill in.\n\n' + `${memberEmoji} To Apply!\n`);
