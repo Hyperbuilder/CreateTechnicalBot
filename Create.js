@@ -179,6 +179,8 @@ client.on('message', async message => {
 			client.commands.get('status').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
 		} else if (command == 'stop') {
 			client.commands.get('stop').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config)
+		} else if (command == 'applysend') {
+			client.commands.get('apply').execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config, sendUserApplyForm(message))
 		} else if (command == 'apply') {
 			sendUserApplyForm(message);
 			message.channel.send(`Check your DM's. No DM? check if you allow DM's from the CreateTechnical Server or Message a Dev`)
