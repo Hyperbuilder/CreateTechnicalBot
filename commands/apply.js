@@ -10,7 +10,7 @@ module.exports = {
 			.setDescription('Create a Applicationform to fill in.\n\n' + `${memberEmoji} To Apply!\n`);
 
 
-		let Applymessage = await Applychannel.send(embed).then(messageEmbed.react(memberEmoji));
+		let Applymessage = await Applychannel.send(embed).then(Applymessage.react(memberEmoji));
 
 
 		client.on('messageReactionAdd', async (reaction, user, message) => {
