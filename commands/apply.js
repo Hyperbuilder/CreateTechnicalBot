@@ -21,7 +21,7 @@ module.exports = {
 			if (!reaction.message.guild) return;
 
 			if (reaction.emoji.name === memberEmoji) {
-				await reaction.message.guild.members.cache.get(user.id).sendUserApplyForm(message)
+				await sendUserApplyForm(message)
 
 			} else {
 				return;
