@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'shame',
 	description: "this makes the bot say pong",
-	execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client) {
+	execute(client, message, args, Discord) {
 		const MNF = new MessageEmbed();
 		const Shame = new MessageEmbed();
 

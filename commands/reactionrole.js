@@ -1,7 +1,7 @@
 module.exports = {
     name: 'reactionrole',
     description: "this makes the bot say pong",
-    async execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client) {
+    async execute(client, message, args, Discord) {
         // put the channel id in the brackets bellow
         const rrchannel = '787497982462525450'
         const memberRole = message.guild.roles.cache.find(role => role.name === "member");

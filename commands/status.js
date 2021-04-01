@@ -1,7 +1,9 @@
+const config = require("../config.json")
+
 module.exports = {
     name: 'status',
     description: "Get serverstatus",
-    execute(message, commandArgs, command, Tags, MessageEmbed, Discord, client, config) {
+    execute(client, message, args, Discord) {
         const ms = require('./minestat');
         const msc = require('./minestat')
         ms.init(config.ip, 25511, function (result) {
