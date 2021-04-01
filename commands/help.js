@@ -1,7 +1,7 @@
 module.exports = {
     name: 'help',
     description: "this will give you some Help",
-    execute(message, args) {
+    execute(client, message, args, Discord) {
 
         //Create Embed 
         const Help = {
