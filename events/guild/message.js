@@ -8,6 +8,6 @@ module.exports = (Discord, client, message) => {
 
     const command = client.commands.get(cmd);
 
-    if(command) command.execute(client, message, args, Discord);
-    console.log('MessageEvent handled, Expected Console Message: recieved command')
+    if (command) command.execute(client, message, args, Discord);
+    console.log('MessageEvent handled')
 }
