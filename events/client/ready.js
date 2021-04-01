@@ -1,7 +1,7 @@
 const mongo = require("../../mongo")
 
 module.exports = async () => {
-    console.log(`CT Gamble bot is running`)
+    console.log(`CT Test + Gamble bot is running`)
 
     await mongo().then(mongoose => {
         try {
