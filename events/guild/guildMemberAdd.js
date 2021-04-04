@@ -1,4 +1,5 @@
 const ProfileSchema = require("../../ProfileSchema");
+const MessageEmbed = require("discord.js")
 
 module.exports = async (client, discord, member) => {
     let profile = await profileModel.create({
