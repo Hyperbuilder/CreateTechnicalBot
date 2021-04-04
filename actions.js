@@ -1,5 +1,5 @@
 const strings = require("./strings/strings.js");
-const prefix = '!'
+const activationStrings = require("./activation-strings.js");
 
 let applicationQuestions = require("./application-questions.js");
 
@@ -40,7 +40,7 @@ const applicationFormCompleted = (data) => {
     if (userToSubmitApplicationsTo) {
         const userSubmitString = strings.formReceiveMessage({
             user: data.user.username,
-            botChar: prefix
+            botChar: activationStrings[0]
         });
 
         userToSubmitApplicationsTo.send(`${userSubmitString}\n${answers}`);
@@ -64,7 +64,7 @@ const sendUserApplyForm = msg => {
     if (!user) {
         const userApplyString = strings.formApplyMessage({
             user: msg.author.username,
-            botChar: prefix
+            botChar: activationStrings[0]
         });
 
         msg.author.send(userApplyString);
@@ -123,7 +123,7 @@ module.exports = {
 
         const adminSetupString = strings.formSetupMessage({
             user: msg.author.username,
-            botChar: prefix
+            botChar: activationStrings[0]
         });
 
         msg.author.send(adminSetupString);
