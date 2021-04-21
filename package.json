@@ -1,15 +1,15 @@
 {
   "name": "discordbot",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Bot for Create Technical",
-  "main": "Create.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "Bot",
     "Create",
-    "mod"
+    "Discord"
   ],
   "author": "Hyperbuilder",
   "license": "ISC",

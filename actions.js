@@ -75,6 +75,23 @@ const sendUserApplyForm = msg => {
     }
 };
 
+const sendUserApplyFormReaction = reaction => {
+    const user = usersApplicationStatus.find(user => user.id === reaction.users.cache.get(user.id));
+
+    if (!user) {
+        const userApplyString = strings.formApplyMessage({
+            user: reaction.users.cache.get(user.username),
+            botChar: activationStrings[0]
+        });
+
+        reaction.users.cache.get(user).send(userApplyString);
+        reaction.users.cache.get(user).send(applicationQuestions[0]);
+        usersApplicationStatus.push({ id: reaction.users.cache.get(user.id), currentStep: 0, answers: [], user: reaction.users.cache.get(user) });
+    } else {
+        reaction.users.cache.get(user).send(applicationQuestions[user.currentStep]);
+    }
+};
+
 module.exports = {
     directMessage: msg => {
         if (msg.author.id === isSettingFormUp) {
@@ -171,8 +188,8 @@ module.exports = {
         msg.reply(strings.setSubmissionsChannelReply);
     },
 
-    apply: msg => {
-        sendUserApplyForm(msg);
+    apply: reaction => {
+        sendUserApplyFormReaction(reaction);
     },
 
     cancel: msg => {
