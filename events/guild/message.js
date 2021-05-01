@@ -1,8 +1,9 @@
 module.exports = (Discord, client, message) => {
-    const prefix = '$'
-    const strings = require("../../strings/strings.js")
-    const activationStrings = require("../../activation-strings")
-    const actions = require("../../actions")
+    const prefix = '$';
+    const strings = require("../../strings/strings.js");
+    const activationStrings = require("../../activation-strings");
+    let applycommands = ["apply", "cancel", "redo", "setup", "endsetup"];
+    const actions = require("../../actions");
 
 
     let hasRanCommand = false;
@@ -14,18 +15,22 @@ module.exports = (Discord, client, message) => {
             const command = message.content.substr(strLen);
 
             hasRanCommand = true;
-
-            try {
-                actions[command](message);
-            } catch (e) {
-                console.error(e);
+            for (var i = 0; i < applycommands.length; i++) {
+                if (message.content.includes(applycommands[i])) {
+                    try {
+                        console.log(command)
+                        actions[command](message);
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }
             }
         }
     });
 
     if (!hasRanCommand && message.channel.type === "dm") {
         try {
-            actions.directMessage(message);
+            actions.directMessage(message, client);
         } catch (e) {
             message.reply(strings.error);
             console.error(e);

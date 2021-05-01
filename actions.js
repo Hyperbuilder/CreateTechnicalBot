@@ -2,11 +2,13 @@ const strings = require("./strings/strings.js");
 const activationStrings = require("./activation-strings.js");
 
 let applicationQuestions = require("./application-questions.js");
+const { MessageEmbed, Message } = require("discord.js");
+const { Error } = require("mongoose");
 
 let isSettingFormUp = false;
 let appNewForm = [];
 let usersApplicationStatus = [];
-let userToSubmitApplicationsTo = null;
+
 
 const authorAuthorization = msg => {
     const authorId = msg.author.id;
@@ -30,21 +32,28 @@ const authorAuthorization = msg => {
     return true;
 };
 
-const applicationFormCompleted = (data) => {
+const applicationFormCompleted = async (data, client) => {
     let i = 0, answers = "";
 
     for (; i < applicationQuestions.length; i++) {
         answers += `${applicationQuestions[i]}: ${data.answers[i]}\n`;
     }
 
-    if (userToSubmitApplicationsTo) {
-        const userSubmitString = strings.formReceiveMessage({
-            user: data.user.username,
-            botChar: activationStrings[0]
-        });
 
-        userToSubmitApplicationsTo.send(`${userSubmitString}\n${answers}`);
-    }
+    const userSubmitString = strings.formReceiveMessage({
+        user: data.user.username,
+        botChar: activationStrings[0]
+    });
+
+    const answerEmbed = new MessageEmbed
+    answerEmbed.setTitle(`${userSubmitString}`)
+    answerEmbed.setDescription(`${answers}`)
+
+    const Accept = '✅';
+    const Deny = '🚫';
+    console.log(`FINISHED APPLICATION Client: ${client}, ${client.channels}`)
+    let AnswerMessage = await client.channels.cache.get("797422520655413276").send(answerEmbed)
+    AnswerMessage.react(Accept).then(() => AnswerMessage.react(Deny))
 };
 
 const cancelUserApplicationForm = (msg, isRedo = false) => {
@@ -61,6 +70,7 @@ const cancelUserApplicationForm = (msg, isRedo = false) => {
 const sendUserApplyForm = msg => {
     const user = usersApplicationStatus.find(user => user.id === msg.author.id);
 
+    if (user.bot) return;
     if (!user) {
         const userApplyString = strings.formApplyMessage({
             user: msg.author.username,
@@ -75,25 +85,28 @@ const sendUserApplyForm = msg => {
     }
 };
 
-const sendUserApplyFormReaction = reaction => {
-    const user = usersApplicationStatus.find(user => user.id === reaction.users.cache.get(user.id));
+const sendUserApplyFormReaction = async (reaction, user) => {
+    const finduser = user.id;
+    const reactionuser = usersApplicationStatus.find(user => user.id === finduser);
 
-    if (!user) {
+    if (user.bot) return;
+    if (!reactionuser) {
         const userApplyString = strings.formApplyMessage({
-            user: reaction.users.cache.get(user.username),
+            user: user.username,
             botChar: activationStrings[0]
         });
 
-        reaction.users.cache.get(user).send(userApplyString);
-        reaction.users.cache.get(user).send(applicationQuestions[0]);
-        usersApplicationStatus.push({ id: reaction.users.cache.get(user.id), currentStep: 0, answers: [], user: reaction.users.cache.get(user) });
+        user.send(userApplyString);
+        user.send(applicationQuestions[0]);
+        usersApplicationStatus.push({ id: user.id, currentStep: 0, answers: [], user: user });
     } else {
-        reaction.users.cache.get(user).send(applicationQuestions[user.currentStep]);
+        user.send(applicationQuestions[user.currentStep]);
     }
+    await reaction.users.remove(user).catch(console.error);
 };
 
 module.exports = {
-    directMessage: msg => {
+    directMessage: (msg, client) => {
         if (msg.author.id === isSettingFormUp) {
             appNewForm.push(msg.content);
         } else {
@@ -106,12 +119,8 @@ module.exports = {
                 if (user.currentStep >= applicationQuestions.length) {
                     usersApplicationStatus = usersApplicationStatus.filter(item => item.id != user.id);
 
-                    if (!userToSubmitApplicationsTo) {
-                        msg.author.send(strings.submissionsNotSet);
-                        return;
-                    }
-
-                    applicationFormCompleted(user);
+                    console.log(`DirectMessage Client: ${client}`)
+                    applicationFormCompleted(user, client);
 
                     msg.author.send(strings.applicationSent);
                 } else {
@@ -160,36 +169,8 @@ module.exports = {
         msg.reply(strings.newFormSetup);
     },
 
-    setsubmissions: msg => {
-        if (!msg.guild) {
-            msg.reply(strings.notInGuild);
-            return;
-        }
-
-        if (!authorAuthorization(msg))
-            return;
-
-        userToSubmitApplicationsTo = msg.author;
-
-        msg.reply(strings.setSubmissionsReply);
-    },
-
-    setsubmissionschannel: msg => {
-        if (!msg.guild) {
-            msg.reply(strings.notInGuild);
-            return;
-        }
-
-        if (!authorAuthorization(msg))
-            return;
-
-        userToSubmitApplicationsTo = msg.channel;
-
-        msg.reply(strings.setSubmissionsChannelReply);
-    },
-
-    apply: reaction => {
-        sendUserApplyFormReaction(reaction);
+    apply: (reaction, user) => {
+        sendUserApplyFormReaction(reaction, user);
     },
 
     cancel: msg => {

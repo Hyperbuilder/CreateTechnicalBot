@@ -1,7 +1,7 @@
 const mongo = require('./mongo');
 const ProfileSchema = require('./ProfileSchema')
 
-module.exports = (client) => {}
+module.exports = (client) => { }
 
 module.exports.getcoins = async (guildID, userID) => {
     return await mongo().then(async (mongoose) => {

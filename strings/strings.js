@@ -12,10 +12,11 @@ module.exports = {
     submissionsNotSet: "Submissions have not been set, please contact your server administrator",
     applicationCancel: "Application canceled.",
     applicationFormFalseCancel: "You have not started an application form yet.",
-    applicationSent: "Congratulations your application has been sent!",
+    applicationSent: "Congratulations, Your Application form has been submitted and will be reviewed within 24h.",
     formSetupInProgress: "Someone else is already configuring the form.",
     newFormSetup: "The new form has been setup.",
-    formReceiveMessage: params => `${params.user} has submitted a form.`,
+    defaultRejectMessage: "I'm sorry to inform you your application to Create Technical has been denied, if you require further information feel free to message a member of the Dev team. You may reapply at a later date, however please do not send multiple applications at the same time",
+    formReceiveMessage: params => `${params.user} has submitted an Application form and should be reviewed.`,
     formApplyMessage: params => `Application commands: \`\`\`${params.botChar}cancel, ${params.botChar}redo\`\`\``,
     formSetupMessage: params => `Enter questions and enter \`${params.botChar}endsetup\` when done.`
 }

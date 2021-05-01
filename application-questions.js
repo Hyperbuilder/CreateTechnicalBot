@@ -1,4 +1,4 @@
-module.exports =  [
+module.exports = [
     "What is your age?",
     "What is your Minecraft username?",
     "Why do you want to join Create Technical?",
