@@ -1,7 +1,7 @@
 module.exports = (Discord, client, message) => {
     const prefix = '$';
     const strings = require("../../strings/strings.js");
-    const activationStrings = require("../../activation-strings");
+    const activationStrings = require("../../strings/activation-strings");
     let applycommands = ["apply", "cancel", "redo", "setup", "endsetup"];
     const actions = require("../../actions");
 

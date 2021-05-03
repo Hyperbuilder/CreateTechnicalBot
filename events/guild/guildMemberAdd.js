@@ -1,7 +1,7 @@
-const ProfileSchema = require("../../ProfileSchema");
+const ProfileSchema = require("../../Schema/ProfileSchema");
 
 module.exports = async (client, discord, member) => {
-    let profile = await profileModel.create({
+    let profile = await ProfileSchema.create({
         userID: member.id,
         guildID: member.guild.id,
         brass: 1000,

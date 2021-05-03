@@ -1,9 +1,10 @@
 const strings = require("./strings/strings.js");
-const activationStrings = require("./activation-strings.js");
+const activationStrings = require("./strings/activation-strings.js");
 
-let applicationQuestions = require("./application-questions.js");
+let applicationQuestions = require("./strings/application-questions.js");
 const { MessageEmbed, Message } = require("discord.js");
 const { Error } = require("mongoose");
+const applydb = require("./applydb")
 
 let isSettingFormUp = false;
 let appNewForm = [];
@@ -33,28 +34,61 @@ const authorAuthorization = msg => {
 };
 
 const applicationFormCompleted = async (data, client) => {
-    let i = 0, answers = "";
-
-    for (; i < applicationQuestions.length; i++) {
-        answers += `${applicationQuestions[i]}: ${data.answers[i]}\n`;
-    }
-
 
     const userSubmitString = strings.formReceiveMessage({
         user: data.user.username,
         botChar: activationStrings[0]
     });
 
-    const answerEmbed = new MessageEmbed
-    answerEmbed.setTitle(`${userSubmitString}`)
-    answerEmbed.setDescription(`${answers}`)
+    const answerEmbed = new MessageEmbed;
+    answerEmbed.setTitle(`${userSubmitString}`);
+
+    for (let aloop = 0; aloop < applicationQuestions.length; aloop++) {
+        answerEmbed.addField(`${applicationQuestions[aloop]}:`, `${data.answers[aloop]}`, true);
+    }
 
     const Accept = '✅';
     const Deny = '🚫';
-    console.log(`FINISHED APPLICATION Client: ${client}, ${client.channels}`)
-    let AnswerMessage = await client.channels.cache.get("797422520655413276").send(answerEmbed)
-    AnswerMessage.react(Accept).then(() => AnswerMessage.react(Deny))
+    let AnswerMessage = await client.channels.cache.get("797422520655413276").send(answerEmbed);
+    AnswerMessage.react(Accept).then(() => AnswerMessage.react(Deny));
+
+    const lastmessagechannel = client.channels.cache.get("797422520655413276")
+    const messages = await lastmessagechannel.messages.fetch({ limit: 1 });
+    const lastMessage = messages.last();
+
+    const applydb = require('./applydb');
+    const applycode = lastMessage.id;
+    const userId = data.user.id;
+
+    console.log('recieved command');
+    console.log(`ApplyID: ${applycode}\nUserID: ${userId}`);
+
+    const addApplication = await applydb.addApp(userId, applycode);
 };
+
+const denyUserApplyForm = async (client, reaction, user, applycode) => {
+    console.log(`ApplyCode: ${applycode}`)
+
+    const userID = await applydb.denyApp(applycode)
+
+    console.log(`userID result: ${userID}`)
+
+    client.users.fetch(userID).then((user) => {
+        user.send(strings.defaultRejectMessage);
+    })
+
+    const mchannel = await client.channels.cache.get("797422520655413276")
+    //User that submitted the application
+    const denieduser = client.users.cache.find(user => user.id === applycode)
+
+    await mchannel.messages.fetch(applycode).then((msg) => {
+        // Remove all reactions, edit the embed to *Denied* status, Update status in DataBase and Transfer to Denied apps channel.
+        msg.reactions.removeAll()
+    })
+
+
+
+}
 
 const cancelUserApplicationForm = (msg, isRedo = false) => {
     const user = usersApplicationStatus.find(user => user.id === msg.author.id);
@@ -102,7 +136,7 @@ const sendUserApplyFormReaction = async (reaction, user) => {
     } else {
         user.send(applicationQuestions[user.currentStep]);
     }
-    await reaction.users.remove(user).catch(console.error);
+    await reaction.users.remove(user);
 };
 
 module.exports = {
@@ -113,13 +147,16 @@ module.exports = {
             const user = usersApplicationStatus.find(user => user.id === msg.author.id);
 
             if (user && msg.content) {
-                user.answers.push(msg.content);
-                user.currentStep++;
 
+                let dirtyString = msg.content;
+                let cleanString = dirtyString.replace(/[|$%@"\`<>()+]/g, "");
+                if (msg.content.length > 1000) return msg.author.send(`Your message with a length of ${msg.content.length} characters exceeds our limit of 1000. Try to shorten your message`)
+                user.answers.push(cleanString);
+                user.currentStep++;
+                console.log(`User: ${msg.author.username}, is at step: ${user.currentStep} `)
                 if (user.currentStep >= applicationQuestions.length) {
                     usersApplicationStatus = usersApplicationStatus.filter(item => item.id != user.id);
 
-                    console.log(`DirectMessage Client: ${client}`)
                     applicationFormCompleted(user, client);
 
                     msg.author.send(strings.applicationSent);
@@ -171,6 +208,10 @@ module.exports = {
 
     apply: (reaction, user) => {
         sendUserApplyFormReaction(reaction, user);
+    },
+
+    deny: (client, reaction, user, applycode) => {
+        denyUserApplyForm(client, reaction, user, applycode)
     },
 
     cancel: msg => {

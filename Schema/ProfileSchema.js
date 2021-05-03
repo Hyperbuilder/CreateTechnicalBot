@@ -15,10 +15,4 @@ const ProfileSchema = mongoose.Schema({
     bank: { type: Number }
 })
 
-const ApplySchema = mongoose.Schema({
-    userID: reqString,
-    applycode: Number
-})
-
 module.exports = mongoose.model('profiles', ProfileSchema);
-module.exports = mongoose.model('applications', ApplySchema);
