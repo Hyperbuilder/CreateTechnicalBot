@@ -81,9 +81,24 @@ const denyUserApplyForm = async (client, reaction, user, applycode) => {
     //User that submitted the application
     const denieduser = client.users.cache.find(user => user.id === applycode)
 
-    await mchannel.messages.fetch(applycode).then((msg) => {
+    await mchannel.messages.fetch(applycode).then(async (message) => {
         // Remove all reactions, edit the embed to *Denied* status, Update status in DataBase and Transfer to Denied apps channel.
-        msg.reactions.removeAll()
+        message.reactions.removeAll()
+
+        //list of reactions
+        const reasonAge = '👶';
+        const reasonBadFit = '🧩';
+        const reasonLackOfInfo = '🧠';
+        const reasonTroll = '🤡';
+        const reasonCustom = '📝';
+
+        try {
+            await message.react(reasonAge);
+            await message.react(reasonBadFit);
+            await message.react(reasonLackOfInfo);
+            await message.react(reasonTroll);
+            await message.react(reasonCustom);
+        } catch (e) { }
     })
 
 

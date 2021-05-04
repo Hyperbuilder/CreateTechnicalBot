@@ -2,6 +2,11 @@ const actions = require("../../actions")
 const ApplyEmoji = '🔵';
 const AcceptEmoji = '✅';
 const DenyEmoji = '🚫';
+const reasonAge = '👶';
+const reasonBadFit = '🧩';
+const reasonLackOfInfo = '🧠';
+const reasonTroll = '🤡';
+const reasonCustom = '📝';
 
 module.exports = async (Discord, client, reaction, user) => {
     if (reaction.message.partial) await reaction.message.fetch();
