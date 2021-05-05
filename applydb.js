@@ -59,3 +59,30 @@ module.exports.denyApp = async (applycode) => {
         }
     })
 }
+
+module.exports.acceptApp = async (applycode) => {
+    return await mongo().then(async (mongoose) => {
+        try {
+            let _id = applycode;
+
+            console.log(`Running: Findone(Applycode/Id: ${_id})`)
+
+            const result = await ApplySchema.findOne({ _id: _id }).catch((error) => {
+                console.log(`Error occured while running findOne(), Error: ${error}`)
+            })
+
+            let userID = null;
+            if (result) {
+
+                console.log(`result: ${result}, UserID: ${userID}`)
+
+                return userID = result.userID;
+            } else {
+                console.log("No result recieved")
+            }
+
+        } finally {
+            mongoose.connection.close()
+        }
+    })
+}

@@ -14,28 +14,15 @@ module.exports = async (Discord, client, reaction, user) => {
     if (user.bot) return;
     if (!reaction.message.guild) return;
 
-    if (reaction.emoji.name === ApplyEmoji) {
-        await reaction.message.guild.members.cache.get(user.id)
-        console.log(user.username)
+    if (reaction.emoji.name === ApplyEmoji) return actions["apply"](reaction, user);
+    if (reaction.emoji.name === AcceptEmoji) return actions["accept"](client, reaction, user, reaction.message.id);
+    if (reaction.emoji.name === DenyEmoji) return actions["deny"](client, reaction, user, reaction.message.id);
+    if (reaction.emoji.name === reasonAge) return actions["reasonAge"](client, reaction, user, reaction.message.id);
+    if (reaction.emoji.name === reasonBadFit) return actions["reasonBadFit"](client, reaction, user, reaction.message.id);
+    if (reaction.emoji.name === reasonLackOfInfo) return actions["reasonLackOfInfo"](client, reaction, user, reaction.message.id);
+    if (reaction.emoji.name === reasonTroll) return actions["reasonTroll"](client, reaction, user, reaction.message.id);
+    if (reaction.emoji.name === reasonCustom) return actions["reasonCustom"](client, reaction, user, reaction.message.id);
 
-        try {
-            actions["apply"](reaction, user);
-        } catch (e) {
-            console.log(e)
-        }
 
-    } else if (reaction.emoji.name === AcceptEmoji) {
-
-    } else if (reaction.emoji.name === DenyEmoji) {
-        let applycode = reaction.message.id;
-
-        try {
-            actions["deny"](client, reaction, user, applycode);
-        } catch (e) {
-            console.log(e)
-        }
-
-    } else {
-        return console.log("No Match Found")
-    }
+    return console.log("No Match Found")
 }

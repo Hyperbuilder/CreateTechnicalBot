@@ -66,8 +66,21 @@ const applicationFormCompleted = async (data, client) => {
     const addApplication = await applydb.addApp(userId, applycode);
 };
 
+const acceptUserApplyForm = async (client, reaction, user, applycode) => {
+
+    const userID = await applydb.acceptApp(applycode)
+
+    console.log(`userID result: ${userID}`)
+
+    client.users.fetch(userID).then((user) => {
+
+        user.send("Your Application has been accepted! Welcome to our Community. Please take a minute to read the rules!")
+        const memberRole = client.guilds.cache.get('myserverID').then((guild) => { guild.roles.cache.find(role => role.id === "839516906817585162") })
+        user.guild.roles.cache.addRole(memberRole)
+    })
+};
+
 const denyUserApplyForm = async (client, reaction, user, applycode) => {
-    console.log(`ApplyCode: ${applycode}`)
 
     const userID = await applydb.denyApp(applycode)
 
@@ -78,11 +91,8 @@ const denyUserApplyForm = async (client, reaction, user, applycode) => {
     })
 
     const mchannel = await client.channels.cache.get("797422520655413276")
-    //User that submitted the application
-    const denieduser = client.users.cache.find(user => user.id === applycode)
 
     await mchannel.messages.fetch(applycode).then(async (message) => {
-        // Remove all reactions, edit the embed to *Denied* status, Update status in DataBase and Transfer to Denied apps channel.
         message.reactions.removeAll()
 
         //list of reactions
@@ -100,10 +110,48 @@ const denyUserApplyForm = async (client, reaction, user, applycode) => {
             await message.react(reasonCustom);
         } catch (e) { }
     })
-
-
-
 }
+
+const deniedReasonAge = async (client, reaction, user, applycode) => {
+    const userID = await applydb.denyApp(applycode)
+
+    client.users.fetch(userID).then((user) => {
+        user.send("Because of your age we had to deny your Application");
+    })
+}
+
+const deniedReasonBadFit = async (client, reaction, user, applycode) => {
+    const userID = await applydb.denyApp(applycode)
+
+    client.users.fetch(userID).then((user) => {
+        user.send("We dont think you will fit in our community");
+    })
+}
+
+const deniedReasonLackOfInfo = async (client, reaction, user, applycode) => {
+    const userID = await applydb.denyApp(applycode)
+
+    client.users.fetch(userID).then((user) => {
+        user.send("Your Application has been denied due to lack of info. Please fill in a new application with more information");
+    })
+}
+
+const deniedReasonTroll = async (client, reaction, user, applycode) => {
+    const userID = await applydb.denyApp(applycode)
+
+    client.users.fetch(userID).then((user) => {
+        user.send("YOU TROLL, GET YEETED BITCHBOY");
+    })
+}
+
+const deniedReasonCustom = async (client, reaction, user, applycode) => {
+    const userID = await applydb.denyApp(applycode)
+
+    client.users.fetch(userID).then((user) => {
+
+    })
+}
+
 
 const cancelUserApplicationForm = (msg, isRedo = false) => {
     const user = usersApplicationStatus.find(user => user.id === msg.author.id);
@@ -229,6 +277,10 @@ module.exports = {
         denyUserApplyForm(client, reaction, user, applycode)
     },
 
+    accept: (client, reaction, user, applycode) => {
+        acceptUserApplyForm(client, reaction, user, applycode)
+    },
+
     cancel: msg => {
         cancelUserApplicationForm(msg);
     },
@@ -236,5 +288,25 @@ module.exports = {
     redo: msg => {
         cancelUserApplicationForm(msg, true);
         sendUserApplyForm(msg);
+    },
+
+    reasonAge: (client, reaction, user, applycode) => {
+        deniedReasonAge(client, reaction, user, applycode)
+    },
+
+    reasonBadFit: (client, reaction, user, applycode) => {
+        deniedReasonBadFit(client, reaction, user, applycode)
+    },
+
+    reasonLackOfInfo: (client, reaction, user, applycode) => {
+        deniedReasonLackOfInfo(client, reaction, user, applycode)
+    },
+
+    reasonTroll: (client, reaction, user, applycode) => {
+        deniedReasonTroll(client, reaction, user, applycode)
+    },
+
+    reasonCustom: (client, reaction, user, applycode) => {
+        deniedReasonCustom(client, reaction, user, applycode)
     }
 };
