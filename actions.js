@@ -56,12 +56,12 @@ const acceptUserApplyForm = async (client, reaction, user, applycode) => {
 
     const userID = await applydb.acceptApp(applycode)
 
-    const guild = reaction.message.guild
-    let role = (guild.roles.cache.get("839516906817585162"));
+    const guild = client.guilds.cache.find((g) => g.id === '733694336570490921')
+    let role = (guild.roles.cache.get("733785266745245737"));
 
     if (!guild) return console.log("No Guild FOUND")
     guild.members.cache.get(userID).roles.add(role).then((user) => {
-        user.send("accepted")
+        user.send(`Hello ${user}, I have great news.\nYou have been accepted to Create Technical.\nTake a minute to read all the rules again, Thank you. \nHave Fun! Greetings The Create Technical Team`)
     })
 };
 
@@ -173,7 +173,6 @@ const cancelUserApplicationForm = (msg, isRedo = false) => {
 const sendUserApplyForm = msg => {
     const user = usersApplicationStatus.find(user => user.id === msg.author.id);
 
-    if (user.bot) return;
     if (!user) {
         const userApplyString = strings.formApplyMessage({
             user: msg.author.username,

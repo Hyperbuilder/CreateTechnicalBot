@@ -11,7 +11,7 @@ module.exports = {
             'Where did you find out Create Technical was a Server that hosts 2 Minecraft servers using Create? This can be anything: friends, reddit, etc.',
             'Explain in why you would want to join Create Technical, Tip: If you put time in this your chances can be higher so be reasonable and try to avoid a couple of words.',
             'What type of player are you exactly?',
-            'Share some pictures of your Build! Please add a little description to \*\*all\*\* of the Images',
+            'Share 1 Picture of your best Create Build! Please add a little description to the Image. This will soon be updated so more Images can be accepted!',
             'Tell us some facts about yourself!',
             'Last Question! What continent are you from? This question is optional.'
         ];
@@ -23,7 +23,7 @@ module.exports = {
             "Where did you learn about us",
             "Why do you want to join Create Technical?",
             "Are you a technical player, a builder, or neither (does not matter which)?",
-            "Share a couple pictures of create builds you’re proud of",
+            "Share a pictures of your best Create build!",
             "Tell us three facts about yourself!",
             "Which continent are you from"
         ];
@@ -36,7 +36,7 @@ module.exports = {
             embed.addField(`${applicationQuestions[l]}:`, `${ex[l]}`, true);
         }
 
-        let messageEmbed = await client.channels.cache.get("839860068656611359").send(embed)
+        let messageEmbed = await client.channels.cache.get("839859704075517973").send(embed)
         messageEmbed.react(memberEmoji)
     }
 }
