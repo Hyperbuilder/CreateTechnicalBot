@@ -19,4 +19,7 @@ module.exports = async (Discord, client) => {
             mongoose.connection.close()
         }
     })
-}
+
+    client.user.setActivity("Create Technical Discord", {
+        type: "WATCHING",
+    }
