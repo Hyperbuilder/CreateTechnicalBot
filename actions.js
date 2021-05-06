@@ -24,7 +24,7 @@ const applicationFormCompleted = async (data, client) => {
 
     const answerEmbed = new MessageEmbed;
     answerEmbed.setTitle(`${userSubmitString}`);
-    answerEmbed.setDescription(`${data.user} has submitted a form. They joined on ${member.joinedAt}`)
+    answerEmbed.setDescription(`${data.user} has submitted a form. They joined on "removed until further notice"`)
     answerEmbed.setFooter(`Accept: *✅*, Deny: *🚫*, Step 2 Deny: Age: *👶*, BadFit: *🧩*, Custom message: 📝`)
     answerEmbed.setAuthor(`${member.user.username}`, `${member.user.avatarURL()}`)
     for (let aloop = 0; aloop < applicationQuestions.length; aloop++) {
