@@ -45,9 +45,6 @@ const applicationFormCompleted = async (data, client) => {
     const applycode = lastMessage.id;
     const userId = data.user.id;
 
-    console.log('recieved command');
-    console.log(`ApplyID: ${applycode}\nUserID: ${userId}`);
-
     //add the application
     const addApplication = await applydb.addApp(userId, applycode, data.answers);
 };
@@ -68,8 +65,6 @@ const acceptUserApplyForm = async (client, reaction, user, applycode) => {
 const denyUserApplyForm = async (client, reaction, user, applycode) => {
 
     const userID = await applydb.denyApp(applycode)
-
-    console.log(`userID result: ${userID}`)
 
     client.users.fetch(userID).then((user) => {
         user.send(strings.defaultRejectMessage);
@@ -226,7 +221,7 @@ module.exports = {
                     if (msg.content.length > 1000) return msg.author.send(`Your message with a length of ${msg.content.length} characters exceeds our limit of 1000. Try to shorten your message`)
                     user.answers.push(cleanString);
                     user.currentStep++;
-                    console.log(`User: ${msg.author.username}, is at step: ${user.currentStep}, Their answer: ${user.answers[user.currentStep - 1]} `)
+                    console.log(`User: ${msg.author.username}, answer: ${user.answers[user.currentStep - 1]} `)
                     if (user.currentStep >= applicationQuestions.length) {
                         usersApplicationStatus = usersApplicationStatus.filter(item => item.id != user.id);
 
@@ -249,7 +244,7 @@ module.exports = {
                 if (msg.content.length > 1000) return msg.author.send(`Your message with a length of ${msg.content.length} characters exceeds our limit of 1000. Try to shorten your message`)
                 user.answers.push(cleanString);
                 user.currentStep++;
-                console.log(`User: ${msg.author.username}, is at step: ${user.currentStep}, Their answer: ${user.answers[user.currentStep - 1]} `)
+                console.log(`User: ${msg.author.username}, answer: ${user.answers[user.currentStep - 1]} `)
                 if (user.currentStep >= applicationQuestions.length) {
                     usersApplicationStatus = usersApplicationStatus.filter(item => item.id != user.id);
 

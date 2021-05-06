@@ -1,5 +1,5 @@
 module.exports = (Discord, client, message) => {
-    const prefix = '$';
+    const prefix = '!';
     const strings = require("../../strings/strings.js");
     const activationStrings = require("../../strings/activation-strings");
     let applycommands = ["cancel", "redo"];

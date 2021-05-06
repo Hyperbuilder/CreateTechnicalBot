@@ -29,8 +29,6 @@ module.exports.addApp = async (userID, applycode, answers) => {
                 }).save()
             }
 
-            console.log('Result:', result);
-
         } finally {
             mongoose.connection.close()
         }
@@ -42,16 +40,13 @@ module.exports.denyApp = async (applycode) => {
         try {
             let _id = applycode;
 
-            console.log(`Running: Findone(Applycode/Id: ${_id})`)
+            console.log(`Running: Findone(${_id})`)
 
             const result = await ApplySchema.findOne({ _id: _id })
 
             let userID = null;
 
             if (result) {
-
-                console.log(`result: ${result}, UserID: ${userID}`)
-
                 return userID = result.userID;
             } else {
                 console.log("No result recieved")
@@ -67,16 +62,13 @@ module.exports.acceptApp = async (applycode) => {
     return await mongo().then(async (mongoose) => {
         try {
 
-            console.log(`Running: Findone(Applycode/Id: ${applycode})`)
+            console.log(`Running: Findone(${applycode})`)
 
             const filter = { _id: applycode }
             const result = await ApplySchema.findOne(filter)
 
             let userID = null;
             if (result) {
-
-                console.log(`result: ${result} \nUserID: ${userID}`)
-
                 return userID = result.userID;
             } else {
                 console.log("No result recieved")
