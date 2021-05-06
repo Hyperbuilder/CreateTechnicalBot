@@ -3,7 +3,7 @@ const ApplySchema = require('./Schema/ApplySchema')
 
 module.exports = (client) => { }
 
-module.exports.addApp = async (userID, applycode) => {
+module.exports.addApp = async (userID, applycode, answers) => {
     return await mongo().then(async (mongoose) => {
         try {
             console.log('Running: Findone()')
@@ -15,13 +15,17 @@ module.exports.addApp = async (userID, applycode) => {
                 _id
             });
 
+            let status = false;
+
             if (result) {
                 console.log(`${result}, Already exists`)
             } else {
                 console.log(`Inserting Document: ${userID}, ${applycode}`)
                 await new ApplySchema({
                     userID,
-                    _id
+                    _id,
+                    answers,
+                    status
                 }).save()
             }
 
@@ -40,11 +44,10 @@ module.exports.denyApp = async (applycode) => {
 
             console.log(`Running: Findone(Applycode/Id: ${_id})`)
 
-            const result = await ApplySchema.findOne({ _id: _id }).catch((error) => {
-                console.log(`Error occured while running findOne(), Error: ${error}`)
-            })
+            const result = await ApplySchema.findOne({ _id: _id })
 
             let userID = null;
+
             if (result) {
 
                 console.log(`result: ${result}, UserID: ${userID}`)
@@ -63,18 +66,16 @@ module.exports.denyApp = async (applycode) => {
 module.exports.acceptApp = async (applycode) => {
     return await mongo().then(async (mongoose) => {
         try {
-            let _id = applycode;
 
-            console.log(`Running: Findone(Applycode/Id: ${_id})`)
+            console.log(`Running: Findone(Applycode/Id: ${applycode})`)
 
-            const result = await ApplySchema.findOne({ _id: _id }).catch((error) => {
-                console.log(`Error occured while running findOne(), Error: ${error}`)
-            })
+            const filter = { _id: applycode }
+            const result = await ApplySchema.findOne(filter)
 
             let userID = null;
             if (result) {
 
-                console.log(`result: ${result}, UserID: ${userID}`)
+                console.log(`result: ${result} \nUserID: ${userID}`)
 
                 return userID = result.userID;
             } else {

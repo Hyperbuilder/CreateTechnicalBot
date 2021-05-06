@@ -7,7 +7,8 @@ const reqString = {
 
 const ApplySchema = mongoose.Schema({
     userID: reqString,
-    _id: reqString
+    _id: reqString,
+    answers: [reqString]
 });
 
 module.exports = mongoose.model('applications', ApplySchema);

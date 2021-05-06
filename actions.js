@@ -10,29 +10,6 @@ let isSettingFormUp = false;
 let appNewForm = [];
 let usersApplicationStatus = [];
 
-
-const authorAuthorization = msg => {
-    const authorId = msg.author.id;
-
-    const role = msg.guild.roles.cache.find(role => role.name.toLowerCase() === strings.adminRole.toLowerCase());
-
-    const guildMember = msg.guild.members.cache.find(member => member.id === authorId);
-
-    if (!role) {
-        msg.reply(strings.unknownRole);
-        return false;
-    }
-
-    const roleFromUser = guildMember.roles.cache.get(role.id);
-
-    if (!roleFromUser) {
-        msg.reply(strings.notAuth);
-        return false;
-    }
-
-    return true;
-};
-
 const applicationFormCompleted = async (data, client) => {
 
     const userSubmitString = strings.formReceiveMessage({
@@ -40,43 +17,51 @@ const applicationFormCompleted = async (data, client) => {
         botChar: activationStrings[0]
     });
 
+    //CHANGE ID !!!!!!!!
+    const guild = client.guilds.cache.find((g) => g.id === '736160722311970877');
+    const member = await guild.members.cache.get(data.user.id)
+
+
     const answerEmbed = new MessageEmbed;
     answerEmbed.setTitle(`${userSubmitString}`);
-
+    answerEmbed.setDescription(`${data.user} has submitted a form. They joined on ${member.joinedAt}`)
+    answerEmbed.setFooter(`Accept: *✅*, Deny: *🚫*, Step 2 Deny: Age: *👶*, BadFit: *🧩*, Custom message: 📝`)
+    answerEmbed.setAuthor(`${member.user.username}`, `${member.user.avatarURL()}`)
     for (let aloop = 0; aloop < applicationQuestions.length; aloop++) {
         answerEmbed.addField(`${applicationQuestions[aloop]}:`, `${data.answers[aloop]}`, true);
     }
 
     const Accept = '✅';
     const Deny = '🚫';
+    //send embed with the application
     let AnswerMessage = await client.channels.cache.get("797422520655413276").send(answerEmbed);
     AnswerMessage.react(Accept).then(() => AnswerMessage.react(Deny));
 
+    //fetch the ID of the application message
     const lastmessagechannel = client.channels.cache.get("797422520655413276")
     const messages = await lastmessagechannel.messages.fetch({ limit: 1 });
     const lastMessage = messages.last();
 
-    const applydb = require('./applydb');
     const applycode = lastMessage.id;
     const userId = data.user.id;
 
     console.log('recieved command');
     console.log(`ApplyID: ${applycode}\nUserID: ${userId}`);
 
-    const addApplication = await applydb.addApp(userId, applycode);
+    //add the application
+    const addApplication = await applydb.addApp(userId, applycode, data.answers);
 };
 
 const acceptUserApplyForm = async (client, reaction, user, applycode) => {
 
     const userID = await applydb.acceptApp(applycode)
 
-    console.log(`userID result: ${userID}`)
+    const guild = reaction.message.guild
+    let role = (guild.roles.cache.get("839516906817585162"));
 
-    client.users.fetch(userID).then((user) => {
-
-        user.send("Your Application has been accepted! Welcome to our Community. Please take a minute to read the rules!")
-        const memberRole = client.guilds.cache.get('myserverID').then((guild) => { guild.roles.cache.find(role => role.id === "839516906817585162") })
-        user.guild.roles.cache.addRole(memberRole)
+    if (!guild) return console.log("No Guild FOUND")
+    guild.members.cache.get(userID).roles.add(role).then((user) => {
+        user.send("accepted")
     })
 };
 
@@ -98,17 +83,13 @@ const denyUserApplyForm = async (client, reaction, user, applycode) => {
         //list of reactions
         const reasonAge = '👶';
         const reasonBadFit = '🧩';
-        const reasonLackOfInfo = '🧠';
-        const reasonTroll = '🤡';
         const reasonCustom = '📝';
 
         try {
             await message.react(reasonAge);
             await message.react(reasonBadFit);
-            await message.react(reasonLackOfInfo);
-            await message.react(reasonTroll);
             await message.react(reasonCustom);
-        } catch (e) { }
+        } catch (e) { console.log(e) }
     })
 }
 
@@ -116,7 +97,15 @@ const deniedReasonAge = async (client, reaction, user, applycode) => {
     const userID = await applydb.denyApp(applycode)
 
     client.users.fetch(userID).then((user) => {
-        user.send("Because of your age we had to deny your Application");
+        const userAgeDenyString = strings.reasonAgeMessage({
+            user: user.username,
+        });
+        user.send(userAgeDenyString)
+    })
+
+    const mchannel = await client.channels.cache.get("797422520655413276")
+    await mchannel.messages.fetch(applycode).then(async (message) => {
+        message.reactions.removeAll()
     })
 }
 
@@ -124,32 +113,49 @@ const deniedReasonBadFit = async (client, reaction, user, applycode) => {
     const userID = await applydb.denyApp(applycode)
 
     client.users.fetch(userID).then((user) => {
-        user.send("We dont think you will fit in our community");
+        const userFitDenyString = strings.reasonBadFitMessage({
+            user: user.username,
+        });
+        user.send(userFitDenyString)
     })
-}
 
-const deniedReasonLackOfInfo = async (client, reaction, user, applycode) => {
-    const userID = await applydb.denyApp(applycode)
-
-    client.users.fetch(userID).then((user) => {
-        user.send("Your Application has been denied due to lack of info. Please fill in a new application with more information");
-    })
-}
-
-const deniedReasonTroll = async (client, reaction, user, applycode) => {
-    const userID = await applydb.denyApp(applycode)
-
-    client.users.fetch(userID).then((user) => {
-        user.send("YOU TROLL, GET YEETED BITCHBOY");
+    const mchannel = await client.channels.cache.get("797422520655413276")
+    await mchannel.messages.fetch(applycode).then(async (message) => {
+        message.reactions.removeAll()
     })
 }
 
 const deniedReasonCustom = async (client, reaction, user, applycode) => {
+
     const userID = await applydb.denyApp(applycode)
 
-    client.users.fetch(userID).then((user) => {
 
+
+    const msg = await user.send('\`\`\`Please fill in decline message\`\`\`');
+    const filter = collected => collected.author.id === user.id;
+    const collected = await msg.channel.awaitMessages(filter, {
+        max: 1
     })
+
+    if (collected.first()) {
+        user.send(`Your Custom message: \n${collected.first().content} \nAnswer with \`accept\` to send or with \`cancel\` to cancel`);
+        const filter2 = collected2 => collected2.author.id === user.id;
+        const collected2 = await msg.channel.awaitMessages(filter2, {
+            max: 1
+        })
+        if (collected2.first().content.toLowerCase() === 'cancel') return user.reply("Message has been canceled, react to the Emoji again for another try!")
+        if (collected2.first().content.toLowerCase() === 'accept') {
+            const mchannel = await client.channels.cache.get("797422520655413276")
+            await mchannel.messages.fetch(applycode).then(async (message) => {
+                message.reactions.removeAll()
+            })
+            client.users.fetch(userID).then((user) => {
+                user.send(collected.first().content)
+            })
+        }
+    }
+
+
 }
 
 
@@ -208,15 +214,43 @@ module.exports = {
             appNewForm.push(msg.content);
         } else {
             const user = usersApplicationStatus.find(user => user.id === msg.author.id);
+            if (user && msg.content && msg.attachments.size > 0) {
+                msg.attachments.forEach(attachment => {
 
-            if (user && msg.content) {
+                    const url = attachment.url;
+                    let dirtyString = msg.content + url;
 
-                let dirtyString = msg.content;
-                let cleanString = dirtyString.replace(/[|$%@"\`<>()+]/g, "");
+
+
+                    let cleanString = dirtyString.replace(/[|$%@"\`<>();+]/g, "");
+
+                    if (msg.content.length > 1000) return msg.author.send(`Your message with a length of ${msg.content.length} characters exceeds our limit of 1000. Try to shorten your message`)
+                    user.answers.push(cleanString);
+                    user.currentStep++;
+                    console.log(`User: ${msg.author.username}, is at step: ${user.currentStep}, Their answer: ${user.answers[user.currentStep - 1]} `)
+                    if (user.currentStep >= applicationQuestions.length) {
+                        usersApplicationStatus = usersApplicationStatus.filter(item => item.id != user.id);
+
+                        applicationFormCompleted(user, client);
+
+                        msg.author.send(strings.applicationSent);
+                    } else {
+                        msg.author.send(applicationQuestions[user.currentStep]);
+                    }
+                })
+
+            }
+            if (user && msg.content && msg.attachments.size <= 0) {
+                let dirtyString = msg.content
+
+
+
+                let cleanString = dirtyString.replace(/[|$%@"\`<>();+]/g, "");
+
                 if (msg.content.length > 1000) return msg.author.send(`Your message with a length of ${msg.content.length} characters exceeds our limit of 1000. Try to shorten your message`)
                 user.answers.push(cleanString);
                 user.currentStep++;
-                console.log(`User: ${msg.author.username}, is at step: ${user.currentStep} `)
+                console.log(`User: ${msg.author.username}, is at step: ${user.currentStep}, Their answer: ${user.answers[user.currentStep - 1]} `)
                 if (user.currentStep >= applicationQuestions.length) {
                     usersApplicationStatus = usersApplicationStatus.filter(item => item.id != user.id);
 
@@ -228,45 +262,6 @@ module.exports = {
                 }
             }
         }
-    },
-
-    setup: msg => {
-        if (!msg.guild) {
-            msg.reply(strings.notInGuild);
-            return;
-        }
-
-        if (!authorAuthorization(msg))
-            return;
-
-        if (isSettingFormUp) {
-            msg.reply(strings.formSetupInProgress);
-            return;
-        }
-
-        appNewForm = [];
-        isSettingFormUp = msg.author.id;
-
-        const adminSetupString = strings.formSetupMessage({
-            user: msg.author.username,
-            botChar: activationStrings[0]
-        });
-
-        msg.author.send(adminSetupString);
-    },
-
-    endsetup: msg => {
-        if (isSettingFormUp !== msg.author.id) {
-            msg.reply(strings.formSetupInProgress);
-            return;
-        }
-
-        applicationQuestions = appNewForm;
-
-        isSettingFormUp = false;
-        appNewForm = [];
-
-        msg.reply(strings.newFormSetup);
     },
 
     apply: (reaction, user) => {
@@ -296,14 +291,6 @@ module.exports = {
 
     reasonBadFit: (client, reaction, user, applycode) => {
         deniedReasonBadFit(client, reaction, user, applycode)
-    },
-
-    reasonLackOfInfo: (client, reaction, user, applycode) => {
-        deniedReasonLackOfInfo(client, reaction, user, applycode)
-    },
-
-    reasonTroll: (client, reaction, user, applycode) => {
-        deniedReasonTroll(client, reaction, user, applycode)
     },
 
     reasonCustom: (client, reaction, user, applycode) => {

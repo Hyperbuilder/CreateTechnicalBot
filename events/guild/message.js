@@ -2,21 +2,22 @@ module.exports = (Discord, client, message) => {
     const prefix = '$';
     const strings = require("../../strings/strings.js");
     const activationStrings = require("../../strings/activation-strings");
-    let applycommands = ["apply", "cancel", "redo", "setup", "endsetup"];
+    let applycommands = ["cancel", "redo"];
     const actions = require("../../actions");
 
 
     let hasRanCommand = false;
+    for (var i = 0; i < applycommands.length; i++) {
+        if (message.content.includes(applycommands[i])) {
 
-    activationStrings.forEach(str => {
-        const strLen = str.length;
+            activationStrings.forEach(str => {
+                const strLen = str.length;
 
-        if (message.content.substr(0, strLen) === str) {
-            const command = message.content.substr(strLen);
+                if (message.content.substr(0, strLen) === str) {
+                    const command = message.content.substr(strLen);
 
-            hasRanCommand = true;
-            for (var i = 0; i < applycommands.length; i++) {
-                if (message.content.includes(applycommands[i])) {
+                    hasRanCommand = true;
+
                     try {
                         console.log(command)
                         actions[command](message);
@@ -24,9 +25,10 @@ module.exports = (Discord, client, message) => {
                         console.error(e);
                     }
                 }
-            }
+
+            })
         }
-    });
+    };
 
     if (!hasRanCommand && message.channel.type === "dm") {
         try {
@@ -46,5 +48,5 @@ module.exports = (Discord, client, message) => {
     const command = client.commands.get(cmd);
 
     if (command) command.execute(client, message, args, Discord);
-    console.log('MessageEvent handled')
+    console.log(command)
 }

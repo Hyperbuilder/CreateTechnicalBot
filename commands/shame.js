@@ -2,8 +2,8 @@ module.exports = {
 	name: 'shame',
 	description: "this makes the bot say pong",
 	execute(client, message, args, Discord) {
-		const MNF = new MessageEmbed();
-		const Shame = new MessageEmbed();
+		const MNF = new Discord.MessageEmbed();
+		const Shame = new Discord.MessageEmbed();
 
 
 		const Target = message.mentions.users.first();
