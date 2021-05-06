@@ -18,7 +18,7 @@ const applicationFormCompleted = async (data, client) => {
     });
 
     //CHANGE ID !!!!!!!!
-    const guild = client.guilds.cache.find((g) => g.id === '736160722311970877');
+    const guild = client.guilds.cache.find((g) => g.id === '733694336570490921');
     const member = await guild.members.cache.get(data.user.id)
 
 
