@@ -20,5 +20,5 @@ module.exports = async (Discord, client) => {
         }
     })
 
-    client.user.setActivity("Create Technical Discord", "WATCHING")
+    client.user.setActivity("Create Technical Discord", { type: 'WATCHING' })
 }
