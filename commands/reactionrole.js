@@ -2,33 +2,26 @@ module.exports = {
     name: 'reactionrole',
     description: "this makes the bot say pong",
     async execute(client, message, args, Discord) {
-        // put the channel id in the brackets bellow
-        const rrchannel = '787497982462525450'
-        const memberRole = message.guild.roles.cache.find(role => role.name === "member");
 
-        const memberEmoji = '👀';
+        const announcement = '❗';
+        const events = '🥳';
+        const male_signrole = '♂️';
+        const female_signrole = '♀️';
+        const they_signrole = client.emojis.get("840264017830215680")
+        const it_signrole = '🇮'
+
 
         let embed = new Discord.MessageEmbed()
-            .setTitle('By reacting you agree that you will recieve Discord pings!')
-            .setDescription('Reacting will give you a role that will be pinged when an announcement is made!\n\n'
-                + `${memberEmoji} So you can join\n`);
+            .setTitle('Reaction roles!')
 
-        let messageEmbed = await rrchannel.send(embed).then(messageEmbed.react(memberEmoji));
-
-        client.on('messageReactionAdd', async (reaction, user) => {
-            if (reaction.message.partial) await reaction.message.fetch();
-            if (reaction.partial) await reaction.fetch();
-            if (user.bot) return;
-            if (!reaction.message.guild) return;
-
-            if (reaction.emoji.name === memberEmoji) {
-                await reaction.message.guild.members.cache.get(user.id).roles.add(memberRole)
-
-            } else {
-                return;
-            }
+        message.channel.send(embed).then(async (embed) => {
+            await embed.react(announcement)
+            await embed.react(events);
+            await embed.react(male_signrole)
+            await embed.react(female_signrole)
+            await embed.react(they_signrole)
+            await embed.react(it_signrole)
         });
-
     }
 
 
