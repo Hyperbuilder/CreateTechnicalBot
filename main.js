@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] })
 const config = require('./config.json');
-const error = require("./utils/error.js");
+const error = require("./Utils/error.js");
 
 client.commands = new Discord.Collection();
 client.events = new Discord.Collection();
