@@ -14,5 +14,5 @@ module.exports = (client) => {
         }
     };
 
-    ["admin", "economy", "functions", "util"].forEach((e) => loaddirs(e));
+    ["admin", "economy", "functions", "other", "util"].forEach((e) => loaddirs(e));
 }
