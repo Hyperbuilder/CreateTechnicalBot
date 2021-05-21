@@ -2,7 +2,7 @@ module.exports = {
     name: 'test',
     description: "this is a test command!",
     execute(client, message, args, Discord) {
-        const config = require("../config.json")
+        const config = require("../../config.json")
         const date = new Date();
         let msToTime = (s) => {
 

@@ -1,4 +1,4 @@
-const error = require("../Utils/error.js")
+const error = require("../../Utils/error.js")
 
 module.exports = {
     name: 'restart',

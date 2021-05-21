@@ -1,4 +1,4 @@
-const config = require("../config.json")
+const config = require("../../config.json")
 const util = require("minecraft-server-util")
 
 module.exports = {
