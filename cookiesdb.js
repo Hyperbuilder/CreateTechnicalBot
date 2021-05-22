@@ -1,4 +1,4 @@
-const mongo = require("../../mongo")
+const mongo = require("./mongo")
 const cookiesSchema = require("../../Schema/cookieSchema")
 
 module.exports.addCookies = async (userID, cookies) => {
