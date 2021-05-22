@@ -1,7 +1,7 @@
 const mongo = require("../../mongo")
 const cookiesSchema = require("../../Schema/cookieSchema")
 
-module.exports.addCookies = (userID, cookies) => {
+module.exports.addCookies = async (userID, cookies) => {
     return await mongo().then(async (mongoose) => {
         try {
             console.log('Running: Findone()')
