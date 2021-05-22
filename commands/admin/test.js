@@ -1,27 +1,31 @@
 module.exports = {
     name: 'test',
-    description: "this is a test command!",
+    description: "this is an uptime command!",
     execute(client, message, args, Discord) {
-        const config = require("../../config.json")
-        const date = new Date();
-        let msToTime = (s) => {
+        function getUptime() {
+            var uptime = process.uptime();
+            console.log("Uptime raw:", uptime)
+            const date = new Date(uptime * 1000);
+            const days = date.getUTCDate() - 1,
+                hours = date.getUTCHours(),
+                minutes = date.getUTCMinutes(),
+                seconds = date.getUTCSeconds(),
+                milliseconds = date.getUTCMilliseconds();
 
-            // Pad to 2 or 3 digits, default is 2
-            function pad(n, z) {
-                z = z || 2;
-                return ('00' + n).slice(-z);
-            }
 
-            var ms = s % 1000;
-            s = (s - ms) / 1000;
-            var secs = s % 60;
-            s = (s - secs) / 60;
-            var mins = s % 60;
-            var hrs = (s - mins) / 60;
+            let segments = [];
 
-            return pad(hrs) + ':' + pad(mins) + ':' + pad(secs) + '.' + pad(ms, 3);
+            // Format the uptime string. 	
+            if (days > 0) segments.push(days + ' day' + ((days == 1) ? '' : 's'));
+            if (hours > 0) segments.push(hours + ' hour' + ((hours == 1) ? '' : 's'));
+            if (minutes > 0) segments.push(minutes + ' minute' + ((minutes == 1) ? '' : 's'));
+            if (seconds > 0) segments.push(seconds + ' second' + ((seconds == 1) ? '' : 's'));
+            if (milliseconds > 0) segments.push(milliseconds + ' millisecond' + ((seconds == 1) ? '' : 's'));
+            const dateString = segments.join(', ');
+
+            console.log("Uptime: " + dateString);
+            message.channel.send(`Bot Uptime: ${dateString}\nRaw Uptime: ${uptime}`)
         }
 
-        message.channel.send(`Running \nlocaltime: ${date}\nUptime: ${msToTime(process.uptime())}`)
     }
 }
