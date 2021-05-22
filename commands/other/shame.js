@@ -1,6 +1,8 @@
 module.exports = {
 	name: 'shame',
 	description: "this makes the bot say pong",
+	expArgs: "<User to shame>",
+	help: "Shame a user for doing something bad",
 	execute(client, message, args, Discord) {
 		const MNF = new Discord.MessageEmbed();
 		const Shame = new Discord.MessageEmbed();

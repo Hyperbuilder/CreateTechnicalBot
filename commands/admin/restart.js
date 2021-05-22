@@ -3,6 +3,8 @@ const error = require("../../Utils/error.js")
 module.exports = {
     name: 'restart',
     description: "this is a Restart command!",
+    expArgs: "<none>",
+    help: "Command to restart the node process",
     execute(client, message, args, Discord) {
         const BotOwner = message.author.id === '432217612345278476';
         if (!BotOwner) {

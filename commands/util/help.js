@@ -1,56 +1,37 @@
+const error = require("../../utils/error.js");
+const { MessageEmbed } = require('discord.js');
+
 module.exports = {
-    name: 'help',
-    description: "this will give you some Help",
-    execute(client, message, args, Discord) {
+    name: "help",
+    description: "Help command",
+    expArgs: "<Command>",
+    help: "help about commands",
+    async execute(client, message, args) {
+        const prefix = '!'
+        try {
+            let embed = new MessageEmbed()
+                .setTitle(`Help command`)
+                .setThumbnail(client.user.displayAvatarURL())
+                .setColor("GREEN")
+                .setTimestamp()
+                .setDescription(client.commands.map(c => `\`${prefix}${c.name}\` - ${c.description}`).join('\n'))
+            if (!args[0]) return message.ireply("", { embed: embed }).catch(e => error.send("Error:" + e.stack))
+            let cmd = client.commands.get(args[0].toLowerCase())
+            if (!cmd) {
+                embed.setColor("RED")
+                    .setDescription("Requested command was not found")
+                    .setTitle("404 Not Found")
+                return message.ireply("", { embed: embed, mention: true })
+            } else {
+                embed.setTitle(cmd.name)
+                    .setDescription(cmd.help)
+                    .addFields({ name: 'Syntax', value: `\`\`\`${prefix}${cmd.name}${cmd.expArgs ? " " + cmd.expArgs : ""}\`\`\`` })
+                message.ireply("", { embed: embed })
+            }
 
-        //Create Embed 
-        const Help = {
-            color: 0x0299ff,
-            title: 'All the commands I have in store.',
-            author: {
-                name: 'Help page',
-            },
-            fields: [
-                {
-                    name: '!Help',
-                    value: '\`Shows this message\`',
-                    inline: true
-                },
-                {
-                    name: '!Suggest',
-                    value: '\`For **making** a Suggestion\`',
-                    inline: true,
-                },
-                {
-                    name: '!Shame',
-                    value: '\`Shame someone\`',
-                    inline: true,
-                },
-                {
-                    name: '!Suggested',
-                    value: '\`shows the Suggestions you made and the \"Code\"\` \n to be added',
-                    inline: false,
-                    //with 
-                },
-                {
-                    name: '!Ping',
-                    value: '\`Play pong!\`',
-                    inline: true,
-                },
-                {
-                    name: '!List',
-                    value: `\`See who's online!\``,
-                    inline: true,
-                }
-            ],
-            timestamp: new Date(),
-            footer: {
-                text: 'Made for the Create Technical Discord Server',
-                icon_url: 'https://imgur.com/fYkZ9na',
-            },
-        };
 
-        //Send Embed
-        message.channel.send({ embed: Help });
-    }
+        } catch (e) {
+            error.send("Errors:" + e.stack)
+        }
+    },
 }

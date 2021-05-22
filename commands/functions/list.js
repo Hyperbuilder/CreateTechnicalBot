@@ -3,7 +3,9 @@ const util = require("minecraft-server-util")
 
 module.exports = {
     name: 'list',
-    description: "this is a ping command!",
+    description: "Use /List",
+    expArgs: "<none>",
+    help: "Command Disabled use /List",
     execute(client, message, args, Discord) {
         const list = new MessageEmbed()
 

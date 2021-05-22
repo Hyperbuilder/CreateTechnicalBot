@@ -1,6 +1,4 @@
 module.exports = {
-    name: 'startapp',
-    description: "",
     async execute(client, message, args, Discord) {
         const memberEmoji = '📁';
         let ex = [

@@ -2,6 +2,10 @@ const { MessageEmbed } = require('discord.js');
 const economy = require('../../economy')
 
 module.exports = {
+    name: "balance",
+    description: "Get the balance of a user",
+    expArgs: "<User> (Optional)",
+    help: "Search the Economy data base for someones Balance",
     async execute(client, message) {
         console.log('recieved command')
 
