@@ -1,9 +1,8 @@
-const mongo = require("../../mongo");
-const ProfileSchema = require("../../Schema/ProfileSchema");
+const MessageEmbed = require("discord.js")
 
 module.exports = async (client, Discord, member) => {
 
-    const welcomeembed = new Discord.MessageEmbed()
+    const welcomeembed = new MessageEmbed()
 
     // await mongo().then(mongoose => {
     //     try {
