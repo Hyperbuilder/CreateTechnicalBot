@@ -38,5 +38,5 @@ module.exports = async (Discord, client, reaction, user) => {
     // if (reaction.emoji.name === female_signrole && reaction.message.channel.id === '840173365188624384') return guild.members.cache.get(user.id).roles.add(female_role)
     // if (reaction.emoji.name === they_signrole && reaction.message.channel.id === '840173365188624384') return guild.members.cache.get(user.id).roles.add(they_role);
     // if (reaction.emoji.name === it_signrole && reaction.message.channel.id === '840173365188624384') return guild.members.cache.get(user.id).roles.add(it_role)
-    return console.log("No Match Found")
+    return
 }
