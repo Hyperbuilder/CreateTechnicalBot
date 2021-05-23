@@ -3,6 +3,7 @@ module.exports = {
     description: "this is an uptime command!",
     expArgs: "<none>",
     help: "Command to get node process data",
+    permission: "ADMINISTRATOR",
     execute(client, message, args, Discord) {
         function getUptime() {
             var uptime = process.uptime();

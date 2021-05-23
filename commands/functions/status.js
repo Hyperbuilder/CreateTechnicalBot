@@ -3,6 +3,7 @@ const config = require("../../config.json")
 module.exports = {
     name: 'status',
     description: "Get serverstatus",
+    permission: "ADMINISTRATOR",
     execute(client, message, args, Discord) {
         const ms = require('./minestat');
         const msc = require('./minestat')

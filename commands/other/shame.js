@@ -3,6 +3,7 @@ module.exports = {
 	description: "this makes the bot say pong",
 	expArgs: "<User to shame>",
 	help: "Shame a user for doing something bad",
+	permission: "READ_MESSAGE_HISTORY",
 	execute(client, message, args, Discord) {
 		const MNF = new Discord.MessageEmbed();
 		const Shame = new Discord.MessageEmbed();

@@ -3,6 +3,7 @@ module.exports = {
     description: "No Touchy",
     expArgs: "<none>",
     help: "No Touchy",
+    permission: "ADMINISTRATOR",
     async execute(client, message, args, Discord) {
         message.channel.send("NO TOUCHY I SAID")
         //     const announcement = '❗';

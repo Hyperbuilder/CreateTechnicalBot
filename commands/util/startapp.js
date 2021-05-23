@@ -1,4 +1,7 @@
 module.exports = {
+    name: 'startapp',
+    description: "",
+    permission: "ADMINISTRATOR",
     async execute(client, message, args, Discord) {
         const memberEmoji = '📁';
         let ex = [

@@ -6,6 +6,7 @@ module.exports = {
     description: "Use /List",
     expArgs: "<none>",
     help: "Command Disabled use /List",
+    permission: "ADMINISTRATOR",
     execute(client, message, args, Discord) {
         const list = new MessageEmbed()
 

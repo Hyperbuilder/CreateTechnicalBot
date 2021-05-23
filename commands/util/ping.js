@@ -3,6 +3,7 @@ module.exports = {
     description: "this is a ping command!",
     expArgs: "<none>",
     help: "Get Ping information",
+    permission: "READ_MESSAGE_HISTORY",
     execute(client, message, args, Discord) {
         //message.channel.send('pong!');
         message.channel.send('Pinging...').then(sent => {
