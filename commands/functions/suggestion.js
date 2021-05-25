@@ -17,8 +17,7 @@ module.exports = {
 
         const newStatus = statusMessages[status]
 
-        if (!message.member.roles.has('800888754524127233')) return message.channel.send("Role Missing")
-
+        if (!message.member.roles.cache.has('800888754524127233')) return message.channel.send("Role Missing")
 
         if (!newStatus) {
             message.reply(
