@@ -11,9 +11,9 @@ module.exports = async (Discord, client, reaction, user) => {
     if (user.bot) return;
     if (!reaction.message.guild) return;
 
-    const guild = client.guilds.cache.find((g) => g.id === '736160722311970877')
-    const announcementrole = guild.roles.cache.find(role => role.id === "813246611907149845");
-    const eventsrole = guild.roles.cache.find(role => role.id === "846753111762927656")
+    const guild = client.guilds.cache.find((g) => g.id === '733694336570490921')
+    const announcementrole = guild.roles.cache.get("813246611907149845")
+    const eventsrole = guild.roles.cache.get("846753111762927656")
     // const male_role = guild.roles.cache.get("839516906817585162");
     // const female_role = guild.roles.cache.get("839516906817585162");
     // const they_role = guild.roles.cache.get("839516906817585162");
