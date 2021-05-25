@@ -1,12 +1,11 @@
 module.exports = {
     name: 'reactionrole',
-    description: "No Touchy",
-    expArgs: "<none>",
-    help: "No Touchy",
+    description: "Start Reaction roles",
     permission: "ADMINISTRATOR",
     async execute(client, message, args, Discord) {
+
         message.delete()
-        message.channel.send("NO TOUCHY I SAID")
+
         const announcement = '❗';
         const events = '🥳';
         const male_signrole = '♂️';
