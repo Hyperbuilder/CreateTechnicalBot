@@ -6,6 +6,7 @@ const DenyEmoji = '🚫';
 const reasonAge = '👶';
 const reasonBadFit = '🧩';
 const reasonCustom = '📝';
+const reasonBadApp = '📋';
 
 // const announcement = '❗';
 // const events = '🥳';
@@ -32,6 +33,7 @@ module.exports = async (Discord, client, reaction, user) => {
     if (reaction.emoji.name === DenyEmoji && user.id === '410953870643298314') return actions["deny"](client, reaction, user, reaction.message.id);
     if (reaction.emoji.name === reasonAge && user.id === '410953870643298314') return actions["reasonAge"](client, reaction, user, reaction.message.id);
     if (reaction.emoji.name === reasonBadFit && user.id === '410953870643298314') return actions["reasonBadFit"](client, reaction, user, reaction.message.id);
+    if (reaction.emoji.name === reasonBadApp && user.id === '410953870643298314') return actions["reasonBadApp"](client, reaction, user, reaction.message.id);
     if (reaction.emoji.name === reasonCustom && user.id === '410953870643298314') return actions["reasonCustom"](client, reaction, user, reaction.message.id);
     // if (reaction.emoji.name === announcement && reaction.message.channel.id === '840173365188624384') return guild.members.cache.get(user.id).roles.add(announcementrole)
     // if (reaction.emoji.name === male_signrole && reaction.message.channel.id === '840173365188624384') return guild.members.cache.get(user.id).roles.add(male_role)

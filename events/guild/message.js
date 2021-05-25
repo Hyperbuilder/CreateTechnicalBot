@@ -23,9 +23,9 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = (Discord, client, message) => {
 
-    const { guild, channel, content, member } = message
+    const { channel, content, member } = message
 
-    const ChannelID = client.channels.cache.find(channel => channel.id === "845990032882794506").id;
+    const ChannelID = client.channels.cache.find(channel => channel.id === "846739167710281748").id;
     if (ChannelID && ChannelID === channel.id && !member.user.bot) {
         message.delete()
 

@@ -3,7 +3,7 @@ const activationStrings = require("./strings/activation-strings.js");
 
 let applicationQuestions = require("./strings/application-questions.js");
 const { MessageEmbed, Message } = require("discord.js");
-const { Error } = require("mongoose");
+const error = require("./Utils/error.js")
 const applydb = require("./applydb")
 
 let isSettingFormUp = false;
@@ -68,6 +68,7 @@ const denyUserApplyForm = async (client, reaction, user, applycode) => {
 
     client.users.fetch(userID).then((user) => {
         user.send(strings.defaultRejectMessage);
+        error.send(`${user}'s Application has been denied`)
     })
 
     const mchannel = await client.channels.cache.get("797422520655413276")
@@ -78,11 +79,13 @@ const denyUserApplyForm = async (client, reaction, user, applycode) => {
         //list of reactions
         const reasonAge = '👶';
         const reasonBadFit = '🧩';
+        const reasonBadApp = '📋';
         const reasonCustom = '📝';
 
         try {
             await message.react(reasonAge);
             await message.react(reasonBadFit);
+            await message.react(reasonBadApp);
             await message.react(reasonCustom);
         } catch (e) { console.log(e) }
     })
@@ -112,6 +115,22 @@ const deniedReasonBadFit = async (client, reaction, user, applycode) => {
             user: user.username,
         });
         user.send(userFitDenyString)
+    })
+
+    const mchannel = await client.channels.cache.get("797422520655413276")
+    await mchannel.messages.fetch(applycode).then(async (message) => {
+        message.reactions.removeAll()
+    })
+}
+
+const deniedreasonBadApp = async (client, reaction, user, applycode) => {
+    const userID = await applydb.denyApp(applycode)
+
+    client.users.fetch(userID).then((user) => {
+        const userAppDenyString = strings.reasonBadAppMessage({
+            user: user.username,
+        });
+        user.send(userAppDenyString)
     })
 
     const mchannel = await client.channels.cache.get("797422520655413276")
@@ -285,6 +304,10 @@ module.exports = {
 
     reasonBadFit: (client, reaction, user, applycode) => {
         deniedReasonBadFit(client, reaction, user, applycode)
+    },
+
+    reasonBadApp: (client, reaction, user, applycode) => {
+        deniedreasonBadApp(client, reaction, user, applycode)
     },
 
     reasonCustom: (client, reaction, user, applycode) => {
