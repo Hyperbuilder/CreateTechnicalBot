@@ -10,7 +10,7 @@ const statusMessages = {
         color: 0xffea00,
     },
     ACCEPTED: {
-        text: '✅ Accepted idea!',
+        text: '✅ Accepted the mod Suggestion!',
         color: 0x34eb5b,
     },
     DENIED: {
