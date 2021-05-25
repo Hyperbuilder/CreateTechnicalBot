@@ -8,10 +8,10 @@ module.exports = {
 
         const announcement = '❗';
         const events = '🥳';
-        const male_signrole = '♂️';
-        const female_signrole = '♀️';
-        const they_signrole = client.emojis.get("840264017830215680")
-        const it_signrole = '🇮'
+        // const male_signrole = '♂️';
+        // const female_signrole = '♀️';
+        // const they_signrole = client.emojis.get("840264017830215680")
+        // const it_signrole = '🇮'
 
 
         let embed = new Discord.MessageEmbed()
