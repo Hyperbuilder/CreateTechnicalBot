@@ -30,5 +30,6 @@ module.exports = {
             message.channel.send(`Bot Uptime: ${dateString}\nRaw Uptime: ${uptime}`)
         }
 
+        getUptime()
     }
 }
