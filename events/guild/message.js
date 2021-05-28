@@ -26,28 +26,28 @@ module.exports = async (Discord, client, message) => {
     const { channel, content, member } = message
 
 
-    // const ChannelID = client.channels.cache.find(channel => channel.id === "846739167710281748").id;
-    // if (ChannelID && ChannelID === channel.id && !member.user.bot) {
-    //     message.delete()
+    const ChannelID = client.channels.cache.find(channel => channel.id === "846739167710281748").id;
+    if (ChannelID && ChannelID === channel.id && !member.user.bot) {
+        message.delete()
 
-    //     const status = statusMessages.WAITING
+        const status = statusMessages.WAITING
 
-    //     const embed = new MessageEmbed()
-    //         .setColor(status.color)
-    //         .setAuthor(member.displayName, member.user.displayAvatarURL())
-    //         .setDescription(content)
-    //         .addFields({
-    //             name: 'Status',
-    //             value: status.text,
-    //         })
-    //         .setFooter('Want to suggest something? Simply type it in this channel')
+        const embed = new MessageEmbed()
+            .setColor(status.color)
+            .setAuthor(member.displayName, member.user.displayAvatarURL())
+            .setDescription(content)
+            .addFields({
+                name: 'Status',
+                value: status.text,
+            })
+            .setFooter('Want to suggest something? Simply type it in this channel')
 
-    //     channel.send(embed).then((message) => {
-    //         message.react('👍').then(() => {
-    //             message.react('👎')
-    //         })
-    //     })
-    // }
+        channel.send(embed).then((message) => {
+            message.react('👍').then(() => {
+                message.react('👎')
+            })
+        })
+    }
 
     let hasRanCommand = false;
     for (var i = 0; i < applycommands.length; i++) {
