@@ -7,5 +7,6 @@ module.exports = {
     execute(client, message, args, Discord) {
         const prettyMilliseconds = require("pretty-ms");
         message.channel.send(`Uptime: ${prettyMilliseconds(process.uptime() * 1000)}`)
+        console.log(`Uptime: ${prettyMilliseconds(process.uptime() * 1000)}`)
     }
 }
