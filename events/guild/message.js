@@ -7,7 +7,7 @@ const actions = require("../../actions");
 const statusMessages = {
     WAITING: {
         text: '📊 Waiting for community feedback, please vote!',
-        color: 0xffea00,
+        color: 0xe98931,
     },
     ACCEPTED: {
         text: '✅ Accepted the mod Suggestion!',
@@ -21,32 +21,33 @@ const statusMessages = {
 }
 const { MessageEmbed } = require("discord.js")
 
-module.exports = (Discord, client, message) => {
+module.exports = async (Discord, client, message) => {
 
     const { channel, content, member } = message
 
-    const ChannelID = client.channels.cache.find(channel => channel.id === "846739167710281748").id;
-    if (ChannelID && ChannelID === channel.id && !member.user.bot) {
-        message.delete()
 
-        const status = statusMessages.WAITING
+    // const ChannelID = client.channels.cache.find(channel => channel.id === "846739167710281748").id;
+    // if (ChannelID && ChannelID === channel.id && !member.user.bot) {
+    //     message.delete()
 
-        const embed = new MessageEmbed()
-            .setColor(status.color)
-            .setAuthor(member.displayName, member.user.displayAvatarURL())
-            .setDescription(content)
-            .addFields({
-                name: 'Status',
-                value: status.text,
-            })
-            .setFooter('Want to suggest something? Simply type it in this channel')
+    //     const status = statusMessages.WAITING
 
-        channel.send(embed).then((message) => {
-            message.react('👍').then(() => {
-                message.react('👎')
-            })
-        })
-    }
+    //     const embed = new MessageEmbed()
+    //         .setColor(status.color)
+    //         .setAuthor(member.displayName, member.user.displayAvatarURL())
+    //         .setDescription(content)
+    //         .addFields({
+    //             name: 'Status',
+    //             value: status.text,
+    //         })
+    //         .setFooter('Want to suggest something? Simply type it in this channel')
+
+    //     channel.send(embed).then((message) => {
+    //         message.react('👍').then(() => {
+    //             message.react('👎')
+    //         })
+    //     })
+    // }
 
     let hasRanCommand = false;
     for (var i = 0; i < applycommands.length; i++) {

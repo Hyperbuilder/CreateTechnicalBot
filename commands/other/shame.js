@@ -13,10 +13,12 @@ module.exports = {
 		if (Target) {
 			Shame.setTitle('Shame on you!')
 			Shame.addField(`Shame them for what they've done!`, `Shame on you ${Target}`)
+			Shame.setColor('#E98931')
 			message.channel.send({ embed: Shame });
 		} else {
 			MNF.setTitle('Shame on you!')
 			MNF.addField(`Shame, you misspelled the name!`, `Try again!`)
+			MNF.setColor('RED')
 			message.channel.send({ embed: MNF });
 		}
 

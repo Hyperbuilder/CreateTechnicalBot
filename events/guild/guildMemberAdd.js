@@ -1,7 +1,5 @@
-const MessageEmbed = require("discord.js")
-
 module.exports = async (Discord, client, member) => {
-
+    const { MessageEmbed } = require("discord.js")
     const welcomeembed = new MessageEmbed()
 
     // await mongo().then(mongoose => {
@@ -20,7 +18,7 @@ module.exports = async (Discord, client, member) => {
     //     }
     // })
 
-
+    welcomeembed.setColor('#E98931')
     welcomeembed.setTitle(`Welcome to CT`)
     welcomeembed.addField(`Welcome To Create Technical`, `Hey ${member}, we're excited to have you join our community.\nPlease start an application form in <#839859704075517973> channel. When you recieve your Member role use /whitelist <MinecraftPlayerName> in <#778816644284940328>. \nHave Fun!`)
     member.guild.channels.cache.get('737425690877493309').send({ embed: welcomeembed });
