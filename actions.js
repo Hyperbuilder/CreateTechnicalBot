@@ -240,7 +240,8 @@ module.exports = {
                     if (msg.content.length > 1000) return msg.author.send(`Your message with a length of ${msg.content.length} characters exceeds our limit of 1000. Try to shorten your message`)
                     user.answers.push(cleanString);
                     user.currentStep++;
-                    console.log(`User: ${msg.author.username}, answer: ${user.answers[user.currentStep - 1]} `)
+                    let now = new Date()
+                    console.log(`User: ${msg.author.username}, answer: ${user.answers[user.currentStep - 1]}\n ${now}\n--- `)
                     if (user.currentStep >= applicationQuestions.length) {
                         usersApplicationStatus = usersApplicationStatus.filter(item => item.id != user.id);
 
