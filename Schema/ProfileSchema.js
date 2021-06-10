@@ -5,6 +5,10 @@ const reqString = {
     type: String,
     require: true
 }
+const reqBool = {
+    type: Boolean,
+    require: true
+}
 const ProfileSchema = mongoose.Schema({
     guildID: reqString,
     userID: reqString,
@@ -17,6 +21,7 @@ const ProfileSchema = mongoose.Schema({
     xp: reqString,
     level: reqString,
     multiplier: reqString,
+    isMuted: reqBool
 })
 
 module.exports = mongoose.model('profiles', ProfileSchema);
