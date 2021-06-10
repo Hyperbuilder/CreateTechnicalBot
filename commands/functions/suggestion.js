@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js')
-const { statusMessages } = require('../../events/guild/message')
+const { statusMessages } = require('@events/guild/message')
 module.exports = {
     name: 'suggestion',
     description: "Make a Suggestion",

@@ -1,5 +1,5 @@
-const mongo = require("./mongo")
-const cookiesSchema = require("./Schema/cookieSchema")
+const mongo = require("@root/mongo")
+const cookiesSchema = require("@schema/cookieSchema")
 
 module.exports.addCookies = async (userID, cookies) => {
     return await mongo().then(async (mongoose) => {

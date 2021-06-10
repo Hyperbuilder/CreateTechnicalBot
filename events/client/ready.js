@@ -1,4 +1,4 @@
-const mongo = require("../../mongo")
+const mongo = require("@root/mongo")
 const chalk = require('chalk');
 
 const info = chalk.cyanBright;

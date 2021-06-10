@@ -1,4 +1,4 @@
-const actions = require("../../actions")
+const actions = require("@root/actions")
 
 const ApplyEmoji = '📁';
 const AcceptEmoji = '✅';

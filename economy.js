@@ -1,5 +1,5 @@
-const mongo = require('./mongo');
-const ProfileSchema = require('./Schema/ProfileSchema')
+const mongo = require('@root/mongo');
+const ProfileSchema = require('@schema/ProfileSchema')
 
 module.exports = (client) => { }
 

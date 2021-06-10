@@ -1,10 +1,10 @@
-const strings = require("./strings/strings.js");
-const activationStrings = require("./strings/activation-strings.js");
+const strings = require("@util/strings.js");
+const activationStrings = require("@util/activation-strings.js");
 
-let applicationQuestions = require("./strings/application-questions.js");
+let applicationQuestions = require("@util/application-questions.js");
 const { MessageEmbed, Message } = require("discord.js");
-const error = require("./Utils/error.js")
-const applydb = require("./applydb")
+const error = require("@util/error.js")
+const applydb = require("@root/applydb")
 
 let isSettingFormUp = false;
 let appNewForm = [];
@@ -26,7 +26,7 @@ const applicationFormCompleted = async (data, client) => {
     answerEmbed.setTitle(`${userSubmitString}`);
     answerEmbed.setDescription(`${data.user} has submitted a form. They joined on "removed until further notice"`)
     answerEmbed.setFooter(`Accept: *✅*, Deny: *🚫*, Step 2 Deny: Age: *👶*, BadFit: *🧩*, Custom message: 📝`)
-    answerEmbed.setAuthor(`${member.user.username}`, `${member.user.avatarURL()}`)
+    answerEmbed.setAuthor(`${member.user.username}`, `${member.user.displayAvatarURL()}`)
     for (let aloop = 0; aloop < applicationQuestions.length; aloop++) {
         answerEmbed.addField(`${applicationQuestions[aloop]}:`, `${data.answers[aloop]}`, true);
     }
