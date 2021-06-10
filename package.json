@@ -29,5 +29,8 @@
     "@events": "./events",
     "@schema": "./schema",
     "@util": "./util"
-  }
+  },
+  "_moduleDirectories": [
+    "node_modules"
+  ]
 }
