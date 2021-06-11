@@ -22,7 +22,7 @@ module.exports = async (Discord, client, reaction, user) => {
 
 
     if (reaction.emoji.name === announcement && reaction.message.channel.id === '813249243980496967') return guild.members.cache.get(user.id).roles.remove(announcementrole)
-    if (reaction.emoji.name === events && reaction.message.channel.id === '813249243980496967') return guild.members.cache.get(user.id).roles.add(eventsrole)
+    if (reaction.emoji.name === events && reaction.message.channel.id === '813249243980496967') return guild.members.cache.get(user.id).roles.remove(eventsrole)
 
     // if (reaction.emoji.name === male_signrole && reaction.message.channel.id === '840173365188624384') return guild.members.cache.get(user.id).roles.add(male_role)
     // if (reaction.emoji.name === female_signrole && reaction.message.channel.id === '840173365188624384') return guild.members.cache.get(user.id).roles.add(female_role)
