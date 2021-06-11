@@ -16,8 +16,9 @@ module.exports = {
 
         let embed = new Discord.MessageEmbed()
             .setTitle('Reaction roles!')
-            .setDescription("React to the emoji's to recieve the corresponding role!")
-            .addField("Emoji's", `Announcements: ${announcement}, Get pinged when an announcement is made.\nEvents: ${events}, Get Pinged when an Event is planned`)
+            .setDescription("React to the emoji's to recieve the corresponding role! \n\n\*\*The Emoji's:\*\*")
+            .addField(`Announcements: ${announcement}`, `Get pinged when an announcement is made.`)
+            .addField(`Events: ${events}`, `Get Pinged when an Event is planned`)
             .setColor('#E98931')
 
         message.channel.send(embed).then(async (embed) => {
