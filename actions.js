@@ -10,6 +10,8 @@ let isSettingFormUp = false;
 let appNewForm = [];
 let usersApplicationStatus = [];
 
+
+/*-----[Post Application]-----*/
 const applicationFormCompleted = async (data, client) => {
 
     const userSubmitString = strings.formReceiveMessage({
@@ -32,11 +34,12 @@ const applicationFormCompleted = async (data, client) => {
 
     const Accept = '✅';
     const Deny = '🚫';
-    //send embed with the application
+
+    /*-----[send embed with the application]-----*/
     let AnswerMessage = await client.channels.cache.get("797422520655413276").send(answerEmbed);
     AnswerMessage.react(Accept).then(() => AnswerMessage.react(Deny));
 
-    //fetch the ID of the application message
+    /*-----[fetch the ID of the application message]-----*/
     const lastmessagechannel = client.channels.cache.get("797422520655413276")
     const messages = await lastmessagechannel.messages.fetch({ limit: 1 });
     const lastMessage = messages.last();
@@ -57,7 +60,7 @@ const acceptUserApplyForm = async (client, reaction, user, applycode) => {
 
     if (!guild) return console.log("No Guild FOUND")
     guild.members.cache.get(userID).roles.add(role).then((user) => {
-        user.send(`Hello ${user}, I have great news.\nYou have been accepted to Create Technical.\nTake a minute to read all the rules again, Thank you. \nHave Fun! Greetings The Create Technical Team`)
+        user.send(`Hello ${user}, I have great news!\nYou have been accepted to Create Technical.\nUse /whitelist to send a whitelist request. You can find the pack and ip in Server-IP-and-Modpack or running /pack for the modpack and /ip for the IP.\nHave Fun! Greetings The Create Technical Team`)
     })
 };
 
@@ -74,7 +77,7 @@ const denyUserApplyForm = async (client, reaction, user, applycode) => {
     await mchannel.messages.fetch(applycode).then(async (message) => {
         message.reactions.removeAll()
 
-        //list of reactions
+        /*-----[Reactions]-----*/
         const reasonAge = '👶';
         const reasonBadFit = '🧩';
         const reasonBadApp = '📋';
@@ -89,6 +92,8 @@ const denyUserApplyForm = async (client, reaction, user, applycode) => {
     })
 }
 
+
+/*-----[Reason of Denial]-----*/
 const deniedReasonAge = async (client, reaction, user, applycode) => {
     const userID = await applydb.denyApp(applycode)
 
@@ -171,6 +176,8 @@ const deniedReasonCustom = async (client, reaction, user, applycode) => {
 }
 
 
+/*-----[UserInput commands]-----*/
+
 const cancelUserApplicationForm = (msg, isRedo = false) => {
     const user = usersApplicationStatus.find(user => user.id === msg.author.id);
 
@@ -182,6 +189,7 @@ const cancelUserApplicationForm = (msg, isRedo = false) => {
     }
 };
 
+/*-----[Application start system]-----*/
 const sendUserApplyForm = msg => {
     const user = usersApplicationStatus.find(user => user.id === msg.author.id);
 
@@ -220,6 +228,7 @@ const sendUserApplyFormReaction = async (reaction, user) => {
 };
 
 module.exports = {
+    /*-----[UserInput Answers]-----*/
     directMessage: (msg, client) => {
         if (msg.author.id === isSettingFormUp) {
             appNewForm.push(msg.content);
