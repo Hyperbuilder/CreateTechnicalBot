@@ -29,7 +29,7 @@ module.exports = async (Discord, client, reaction, user) => {
     // const they_role = guild.roles.cache.get("839516906817585162");
     // const it_role = guild.roles.cache.get("839516906817585162");
 
-    //if (reaction.emoji.name === ApplyEmoji && reaction.message.channel.id === '839859704075517973') return actions["apply"](reaction, user);
+    if (reaction.emoji.name === ApplyEmoji && reaction.message.channel.id === '839859704075517973') return actions["apply"](reaction, user);
     if (reaction.emoji.name === AcceptEmoji && user.id === '410953870643298314') return actions["accept"](client, reaction, user, reaction.message.id);
     if (reaction.emoji.name === DenyEmoji && user.id === '410953870643298314') return actions["deny"](client, reaction, user, reaction.message.id);
     if (reaction.emoji.name === reasonAge && user.id === '410953870643298314') return actions["reasonAge"](client, reaction, user, reaction.message.id);
