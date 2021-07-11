@@ -17,7 +17,6 @@ const applicationFormCompleted = async (data, client) => {
         botChar: activationStrings[0]
     });
 
-    //CHANGE ID !!!!!!!!
     const guild = client.guilds.cache.find((g) => g.id === '733694336570490921');
     const member = await guild.members.cache.get(data.user.id)
 
@@ -25,7 +24,7 @@ const applicationFormCompleted = async (data, client) => {
     const answerEmbed = new MessageEmbed;
     answerEmbed.setTitle(`${userSubmitString}`);
     answerEmbed.setDescription(`${data.user} has submitted a form. They joined on "removed until further notice"`)
-    answerEmbed.setFooter(`Accept: *✅*, Deny: *🚫*, Step 2 Deny: Age: *👶*, BadFit: *🧩*, Custom message: 📝`)
+    answerEmbed.setFooter(`\*\*Step 1\*\* Accept✅ or Deny🚫. \*\*Step 2\*\* Age👶 BadFit🧩 BadApp📋 Custom message📝`)
     answerEmbed.setAuthor(`${member.user.username}`, `${member.user.displayAvatarURL()}`)
     for (let aloop = 0; aloop < applicationQuestions.length; aloop++) {
         answerEmbed.addField(`${applicationQuestions[aloop]}:`, `${data.answers[aloop]}`, true);
@@ -45,7 +44,7 @@ const applicationFormCompleted = async (data, client) => {
     const applycode = lastMessage.id;
     const userId = data.user.id;
 
-    //add the application
+    //add The application to the database
     const addApplication = await applydb.addApp(userId, applycode, data.answers);
 };
 
@@ -67,7 +66,6 @@ const denyUserApplyForm = async (client, reaction, user, applycode) => {
     const userID = await applydb.denyApp(applycode)
 
     client.users.fetch(userID).then((user) => {
-        user.send(strings.defaultRejectMessage);
         error.send(`${user}'s Application has been denied`)
     })
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { mongoPass } = require('@root/config.json');
+const { mongoPass } = require('./config.json');
 
 module.exports = async () => {
     await mongoose.connect(mongoPass, {
