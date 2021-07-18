@@ -26,7 +26,7 @@ module.exports = {
             return
         }
 
-        const channelId = client.channels.cache.get("845990032882794506").id
+        const channelId = client.channels.cache.get("846739167710281748").id
         if (!channelId) {
             message.reply('An error occurred, please report this')
             return

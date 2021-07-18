@@ -190,22 +190,22 @@ const cancelUserApplicationForm = (msg, isRedo = false) => {
 };
 
 /*-----[Application start system]-----*/
-const sendUserApplyForm = msg => {
-    const user = usersApplicationStatus.find(user => user.id === msg.author.id);
+// const sendUserApplyForm = msg => {
+//     const user = usersApplicationStatus.find(user => user.id === msg.author.id);
 
-    if (!user) {
-        const userApplyString = strings.formApplyMessage({
-            user: msg.author.username,
-            botChar: activationStrings[0]
-        });
+//     if (!user) {
+//         const userApplyString = strings.formApplyMessage({
+//             user: msg.author.username,
+//             botChar: activationStrings[0]
+//         });
 
-        msg.author.send(userApplyString);
-        msg.author.send(applicationQuestions[0]);
-        usersApplicationStatus.push({ id: msg.author.id, currentStep: 0, answers: [], user: msg.author });
-    } else {
-        msg.author.send(applicationQuestions[user.currentStep]);
-    }
-};
+//         msg.author.send(userApplyString);
+//         msg.author.send(applicationQuestions[0]);
+//         usersApplicationStatus.push({ id: msg.author.id, currentStep: 0, answers: [], user: msg.author });
+//     } else {
+//         msg.author.send(applicationQuestions[user.currentStep]);
+//     }
+// };
 
 const sendUserApplyFormReaction = async (reaction, user) => {
     const finduser = user.id;
@@ -248,7 +248,7 @@ module.exports = {
                     user.answers.push(cleanString);
                     user.currentStep++;
                     let now = new Date()
-                    console.log(`User: ${msg.author.username}, answer: ${user.answers[user.currentStep - 1]}\n ${now}\n--- `)
+                    console.log(`User: ${msg.author.username}, answer: ${user.answers[user.currentStep - 1]}`)
                     if (user.currentStep >= applicationQuestions.length) {
                         usersApplicationStatus = usersApplicationStatus.filter(item => item.id != user.id);
 
