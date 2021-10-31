@@ -21,9 +21,9 @@ const statusMessages = {
 }
 const { MessageEmbed } = require("discord.js")
 
-module.exports = async (Discord, client, message) => {
-
-    const { channel, content, member } = message
+module.exports = async (Discord, client, interaction) => {
+    console.log(interaction)
+    {/*    const { channel, content, member } = message
 
 
     const SChannel = client.channels.cache.find(channel => channel.id === "846739167710281748");
@@ -93,6 +93,5 @@ module.exports = async (Discord, client, message) => {
     if (command) command.execute(client, message, args, Discord);
     console.log(command)
 
-
+*/}
 }
-module.exports.statusMessages = statusMessages

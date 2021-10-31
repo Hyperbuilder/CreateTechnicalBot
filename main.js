@@ -21,7 +21,7 @@ client.events = new Discord.Collection();
     require(`./handlers/${handler}`)(client, Discord)
 })
 
-//process.on("unhandledRejection", (e) => error.send("UnhandledRejection: " + e.stack ?? e))
-//process.on("uncaughtException", (e, o) => error.send("UnhandledRejection: " + (e.stack ?? e) + "\n" + o))
+process.on("unhandledRejection", (e) => error.send("UnhandledRejection: " + e.stack ?? e, { files: ["./log.txt"] }))
+process.on("uncaughtException", (e, o) => error.send("UnhandledRejection: " + (e.stack ?? e) + "\n" + o))
 
 client.login(config.token)
