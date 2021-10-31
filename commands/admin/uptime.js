@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'test',
+    name: 'uptime',
     description: "this is an uptime command!",
     expArgs: "<none>",
     help: "Command to get node process data",
